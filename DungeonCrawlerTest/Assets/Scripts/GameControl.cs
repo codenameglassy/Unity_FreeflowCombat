@@ -64,7 +64,7 @@ public class GameControl : MonoBehaviour
     {
         while (true)
         {
-            yield return new WaitForSeconds(0.1f); // Wait for 200 milliseconds
+            yield return new WaitForSeconds(0.15f); // Wait for 200 milliseconds
 
             // Call your function here
             RepopulateTargetInRange();

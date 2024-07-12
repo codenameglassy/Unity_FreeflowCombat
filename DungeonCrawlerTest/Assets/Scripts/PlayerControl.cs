@@ -44,7 +44,12 @@ public class PlayerControl : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
-            Attack();
+            Attack(0);
+        }
+
+        if (Input.GetMouseButtonDown(1))
+        {
+            Attack(1);
         }
 
         if (Input.GetKeyDown(KeyCode.Q))
@@ -62,7 +67,7 @@ public class PlayerControl : MonoBehaviour
 
 
 
-    public void Attack()
+    public void Attack(int attackState)
     {
         if (isAttacking)
         {
@@ -70,11 +75,34 @@ public class PlayerControl : MonoBehaviour
         }
 
         thirdPersonController.canMove = false;
-        RandomAttackAnim();
+        RandomAttackAnim(attackState);
        
     }
 
-    private void RandomAttackAnim()
+   
+
+    private void RandomAttackAnim(int attackState)
+    {
+        
+
+        switch (attackState) 
+        {
+            case 0: //Quick Attack
+
+                QuickAttack();
+                break;
+
+            case 1:
+                HeavyAttack();
+                break;
+
+        }
+
+
+       
+    }
+
+    void QuickAttack()
     {
         int attackIndex = Random.Range(1, 4);
         if (debug)
@@ -87,31 +115,107 @@ public class PlayerControl : MonoBehaviour
             case 1: //punch
 
                 if (target != null)
+                {
                     MoveTowardsTarget(target.position, punchDeltaDistance, "punch");
-
-                isAttacking = true;
+                    isAttacking = true;
+                }
+                else
+                {
+                    thirdPersonController.canMove = true;
+                }
 
                 break;
 
             case 2: //kick
 
-                
-
                 if (target != null)
+                {
                     MoveTowardsTarget(target.position, kickDeltaDistance, "kick");
-
-                isAttacking = true;
+                    isAttacking = true;
+                }
+                else
+                {
+                    thirdPersonController.canMove = true;
+                }
+                   
 
                 break;
 
             case 3: //mmakick
 
-            
-
                 if (target != null)
+                {
                     MoveTowardsTarget(target.position, kickDeltaDistance, "mmakick");
 
-                isAttacking = true;
+                    isAttacking = true;
+                }
+                else
+                {
+                    thirdPersonController.canMove = true;
+                }
+               
+
+                break;
+        }
+    }
+
+    void HeavyAttack()
+    {
+        //int attackIndex = Random.Range(1, 4);
+        int attackIndex = 2;
+        if (debug)
+        {
+            Debug.Log(attackIndex + " attack index");
+        }
+
+        switch (attackIndex)
+        {
+            case 1: //heavyAttack1
+
+                if (target != null)
+                {
+                    MoveTowardsTarget(target.position, kickDeltaDistance, "heavyAttack1");
+
+                    isAttacking = true;
+                }
+                else
+                {
+                    thirdPersonController.canMove = true;
+                }
+
+
+                break;
+
+            case 2: //heavyAttack2
+
+                if (target != null)
+                {
+                    //MoveTowardsTarget(target.position, kickDeltaDistance, "heavyAttack2");
+                    FaceThis(target.position);
+                    anim.SetBool("heavyAttack2", true);
+                    isAttacking = true;
+                }
+                else
+                {
+                    thirdPersonController.canMove = true;
+                }
+
+
+                break;
+
+            case 3: //heavyAttack3
+
+                if (target != null)
+                {
+                    MoveTowardsTarget(target.position, kickDeltaDistance, "heavyAttack3");
+
+                    isAttacking = true;
+                }
+                else
+                {
+                    thirdPersonController.canMove = true;
+                }
+           
 
                 break;
         }
@@ -122,6 +226,8 @@ public class PlayerControl : MonoBehaviour
         anim.SetBool("punch", false);
         anim.SetBool("kick", false);
         anim.SetBool("mmakick", false);
+        anim.SetBool("heavyAttack1", false);
+        anim.SetBool("heavyAttack2", false);
         thirdPersonController.canMove = true;
         isAttacking = false;
     }
@@ -171,6 +277,15 @@ public class PlayerControl : MonoBehaviour
         transform.DOMove(finalPos, reachTime);
         //transform.DOMove(finalPos, reachTime).OnComplete(() => PerformAttackAnimation(animationName_));
 
+    }
+
+    public void GetClose() 
+    {
+        Vector3 target_ = target.position;
+        FaceThis(target_);
+        Vector3 finalPos = TargetOffset(target_, 1.4f);
+        finalPos.y = 0;
+        transform.DOMove(finalPos, 0.2f);
     }
 
     void PerformAttackAnimation(string animationName_)
