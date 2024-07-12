@@ -161,8 +161,8 @@ public class PlayerControl : MonoBehaviour
 
     void HeavyAttack()
     {
-        //int attackIndex = Random.Range(1, 4);
-        int attackIndex = 2;
+        int attackIndex = Random.Range(1, 3);
+        //int attackIndex = 2;
         if (debug)
         {
             Debug.Log(attackIndex + " attack index");
@@ -174,9 +174,11 @@ public class PlayerControl : MonoBehaviour
 
                 if (target != null)
                 {
-                    MoveTowardsTarget(target.position, kickDeltaDistance, "heavyAttack1");
-
+                    //MoveTowardsTarget(target.position, kickDeltaDistance, "heavyAttack1");
+                    FaceThis(target.position);
+                    anim.SetBool("heavyAttack1", true);
                     isAttacking = true;
+                  
                 }
                 else
                 {
