@@ -1,0 +1,70 @@
+fileFormatVersion: 2
+guid: 67dfcda17071f4a41be79c4049965e67
+ScriptedImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 2
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+  script: {fileID: 11500000, guid: fe56ec25963759b49955809beeb4324b, type: 3}
+  detectedRenderPipeline: Built-In Render Pipeline
+  strippedLinesCount: 108
+  shaderSourceCode: "//--------------------------------------------------------------------------------------------------------------------------------\r\n//
+    Cartoon FX\r\n// (c) 2012-2020 Jean Moreno\r\n//--------------------------------------------------------------------------------------------------------------------------------\r\n\r\nShader
+    \"Cartoon FX/Remaster/Particle Procedural Glow NEW\"\r\n{\r\n\tProperties\r\n\t{\r\n\t//#
+    Blending\r\n\t//#\r\n\r\n\t\t[Enum(UnityEngine.Rendering.BlendMode)] _SrcBlend
+    (\"Blend Source\", Float) = 5\r\n\t\t[Enum(UnityEngine.Rendering.BlendMode)]
+    _DstBlend (\"Blend Destination\", Float) = 10\r\n\t\r\n\t//# --------------------------------------------------------\r\n\r\n\t\t[Toggle(_CFXR_DISSOLVE)]
+    _UseDissolve (\"Enable Dissolve\", Float) = 0\r\n\t//# IF_KEYWORD _CFXR_DISSOLVE\r\n\t\t[NoScaleOffset]
+    _DissolveTex (\"Dissolve Texture\", 2D) = \"gray\" {}\r\n\t\t_DissolveSmooth
+    (\"Dissolve Smoothing\", Range(0.0001,0.5)) = 0.1\r\n\t\t[ToggleNoKeyword] _InvertDissolveTex
+    (\"Invert Dissolve Texture\", Float) = 0\r\n\t//# END_IF\r\n\r\n\t//# --------------------------------------------------------\r\n\r\n\t//#
+    Procedural Circle\r\n\t//#\r\n\r\n\t\t[KeywordEnum(P0, P2, P4, P8)] _CFXR_GLOW_POW
+    (\"Apply Power of\", Float) = 0\r\n\t\t_GlowMin (\"Circle Min\", Float) = 0\r\n\t\t_GlowMax
+    (\"Circle Max\", Float) = 1\r\n\t//#\r\n\t\t_MaxValue (\"Max Value\", Float)
+    = 10\r\n\r\n\t//# --------------------------------------------------------\r\n\r\n\t\t[Toggle(_CFXR_HDR_BOOST)]
+    _HdrBoost (\"Enable HDR Multiplier\", Float) = 0\r\n\t//# IF_KEYWORD _CFXR_HDR_BOOST\r\n\t\t_HdrMultiply
+    (\"HDR Multiplier\", Float) = 2\r\n\t//# END_IF\r\n\r\n\t//# --------------------------------------------------------\r\n\t\r\n\t\t[Toggle(_FADING_ON)]
+    _UseSP (\"Soft Particles\", Float) = 0\r\n\t//# IF_KEYWORD _FADING_ON\r\n\t\t_SoftParticlesFadeDistanceNear
+    (\"Near Fade\", Float) = 0\r\n\t\t_SoftParticlesFadeDistanceFar (\"Far Fade\",
+    Float) = 1\r\n\t//# END_IF\r\n\r\n\t//# ========================================================\r\n\t//#
+    Shadows\r\n\t//#\r\n\r\n\t\t[KeywordEnum(Off,On,CustomTexture)] _CFXR_DITHERED_SHADOWS
+    (\"Dithered Shadows\", Float) = 0\r\n\t//# IF_KEYWORD _CFXR_DITHERED_SHADOWS_ON
+    || _CFXR_DITHERED_SHADOWS_CUSTOMTEXTURE\r\n\t\t_ShadowStrength\t\t(\"Shadows
+    Strength Max\", Range(0,1)) = 1.0\r\n\t\t//#\tIF_KEYWORD _CFXR_DITHERED_SHADOWS_CUSTOMTEXTURE\r\n\t\t_DitherCustom\t\t(\"Dithering
+    3D Texture\", 3D) = \"black\" {}\r\n\t\t//#\tEND_IF\r\n\t//# END_IF\r\n\t}\r\n\t\r\n\tCategory\r\n\t{\r\n\t\tTags\r\n\t\t{\r\n\t\t\t\"Queue\"=\"Transparent\"\r\n\t\t\t\"IgnoreProjector\"=\"True\"\r\n\t\t\t\"RenderType\"=\"Transparent\"\r\n\t\t\t\"PreviewType\"=\"Plane\"\r\n\t\t}\r\n\t\tBlend
+    [_SrcBlend] [_DstBlend], One One\r\n\t\tCull  Off\r\n\t\tZWrite Off\r\n\r\n\r\n\t\t//====================================================================================================================================\r\n\t\t//
+    Built-in Rendering Pipeline\r\n\r\n\t\tSubShader\r\n\t\t{\r\n\t\t\tPass\r\n\t\t\t{\r\n\t\t\t\tName
+    \"BASE\"\r\n\t\t\t\tTags { \"LightMode\"=\"ForwardBase\" }\r\n\r\n\t\t\t\tCGPROGRAM\r\n\r\n\t\t\t\t#pragma
+    vertex vertex_program\r\n\t\t\t\t#pragma fragment fragment_program\r\n\t\t\t\t\r\n\t\t\t\t//vertInstancingSetup
+    writes to global, not allowed with DXC\r\n\t\t\t\t// #pragma never_use_dxc\r\n\t\t\t\t//
+    #pragma target 2.5\r\n\t\t\t\t// #pragma multi_compile_instancing\r\n\t\t\t\t//
+    #pragma instancing_options procedural:vertInstancingSetup\r\n\r\n\t\t\t\t#pragma
+    multi_compile_particles\r\n\t\t\t\t#pragma multi_compile_fog\r\n\t\t\t\t\r\n\t\t\t\t#pragma
+    shader_feature_local _ _CFXR_GLOW_POW_P2 _CFXR_GLOW_POW_P4 _CFXR_GLOW_POW_P8\r\n\t\t\t\t#pragma
+    shader_feature_local _ _CFXR_HDR_BOOST\r\n\t\t\t\t#pragma shader_feature_local
+    _ _CFXR_DISSOLVE\r\n\r\n\t\t\t\t#pragma shader_feature_local _FADING_ON\r\n\t\t\t\t#pragma
+    shader_feature_local _ _ALPHATEST_ON\r\n\t\t\t\t#pragma shader_feature_local
+    _ _ALPHABLEND_ON _ALPHAPREMULTIPLY_ON _ALPHAMODULATE_ON _CFXR_ADDITIVE\r\n\r\n\t\t\t\t#include
+    \"UnityStandardParticleInstancing.cginc\"\r\n\r\n\t\t\t\t#define CFXR_GLOW_SHADER\r\n\t\t\t\t#include
+    \"CFXR_PASSES.cginc\"\r\n\r\n\t\t\t\tENDCG\r\n\t\t\t}\r\n\r\n\t\t\t//--------------------------------------------------------------------------------------------------------------------------------\r\n\r\n\t\t\tPass\r\n\t\t\t{\r\n\t\t\t\tName
+    \"ShadowCaster\"\r\n\t\t\t\tTags { \"LightMode\" = \"ShadowCaster\" }\r\n\r\n\t\t\t\tBlendOp
+    Add\r\n\t\t\t\tBlend One Zero\r\n\t\t\t\tZWrite On\r\n\t\t\t\tCull Off\r\n\t\t\t\r\n\t\t\t\tCGPROGRAM\r\n\r\n\t\t\t\t#pragma
+    vertex vertex_program\r\n\t\t\t\t#pragma fragment fragment_program\r\n\r\n\t\t\t\t//vertInstancingSetup
+    writes to global, not allowed with DXC\r\n\t\t\t\t// #pragma never_use_dxc\r\n\t\t\t\t//
+    #pragma target 2.5\r\n\t\t\t\t// #pragma multi_compile_instancing\r\n\t\t\t\t//
+    #pragma instancing_options procedural:vertInstancingSetup\r\n\r\n\t\t\t\t#pragma
+    shader_feature_local _ _CFXR_GLOW_POW_P2 _CFXR_GLOW_POW_P4 _CFXR_GLOW_POW_P8\r\n\t\t\t\t#pragma
+    shader_feature_local _ _CFXR_DISSOLVE\r\n\r\n\t\t\t\t#pragma shader_feature_local
+    _FADING_ON\r\n\t\t\t\t#pragma shader_feature_local _ _ALPHATEST_ON _ALPHABLEND_ON
+    _ALPHAPREMULTIPLY_ON _ALPHAMODULATE_ON\r\n\r\n\t\t\t\t#pragma multi_compile_shadowcaster\r\n\t\t\t\t#pragma
+    shader_feature_local _ _CFXR_DITHERED_SHADOWS_ON _CFXR_DITHERED_SHADOWS_CUSTOMTEXTURE\r\n\r\n\t\t\t#if
+    (_CFXR_DITHERED_SHADOWS_ON || _CFXR_DITHERED_SHADOWS_CUSTOMTEXTURE) && !defined(SHADER_API_GLES)\r\n\t\t\t\t#pragma
+    target 3.0\t\t//needed for VPOS\r\n\t\t\t#endif\r\n\r\n\t\t\t\t#include \"UnityStandardParticleInstancing.cginc\"\r\n\r\n\t\t\t\t#define
+    PASS_SHADOW_CASTER\r\n\t\t\t\t#define CFXR_GLOW_SHADER\r\n\t\t\t\t#include \"CFXR_PASSES.cginc\"\r\n\r\n\t\t\t\tENDCG\r\n\t\t\t}\r\n\t\t}\r\n\t}\r\n\t\r\n\tCustomEditor
+    \"CartoonFX.MaterialInspector\"\r\n}\r\n\r\n"
+  shaderName: Cartoon FX/Remaster/Particle Procedural Glow NEW
+  shaderErrors: []
+  variantCount: 3040
+  variantCountUsed: 4

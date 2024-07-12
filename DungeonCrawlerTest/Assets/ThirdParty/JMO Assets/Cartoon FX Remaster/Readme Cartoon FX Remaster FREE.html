@@ -1,0 +1,268 @@
+﻿<!doctype html>
+
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>Cartoon FX Remaster FREE</title>
+		<style>
+			/* reset CSS */
+			a,abbr,acronym,address,applet,article,aside,audio,b,big,blockquote,body,canvas,caption,center,cite,code,dd,del,details,dfn,div,dl,dt,em,embed,fieldset,figcaption,figure,footer,form,h1,h2,h3,h4,h5,h6,header,hgroup,html,i,iframe,img,ins,kbd,label,legend,li,mark,menu,nav,object,ol,output,p,pre,q,ruby,s,samp,section,small,span,strike,strong,sub,summary,sup,table,tbody,td,tfoot,th,thead,time,tr,tt,u,var,video{margin:0;padding:0;border:0;font-size:100%;font:inherit;vertical-align:baseline}table{border-collapse:collapse;border-spacing:0}
+
+			body
+			{
+				font-family: sans-serif;
+				font-size: 14px;
+				background-color: #eee;
+				line-height: 1.2em;
+			}
+
+			h1,h2,h3,h4 { font-weight: bold; margin: 0 0 0.5em 0; color: #444; }
+			h1 { font-size: 26px; }
+			h2 { font-size: 22px; scroll-margin-top: 8px; }
+			h3 { font-size: 18px; margin: 0.2em 0 0.2em 0; color: #666; }
+
+			a
+			{
+				text-decoration: none;
+				border-bottom: solid 1px #ddd;
+				color: #777;
+			}
+			a:hover
+			{
+				background-color: #777;
+				color: #fff;
+			}
+
+			hr
+			{
+				border: none;
+				border-bottom: double 3px #AAA;
+				margin-bottom: 1em;
+			}
+
+			em { color: #10a771; }
+			b { font-weight: bold; color: #555; }
+
+			ul { margin: 0.2em 0; }
+			p { margin: 0.3em; }
+
+			p.info
+			{
+				font-size: 12px;
+				padding: 8px;
+				background-color: #E8E8E8;
+				border: solid 1px #C0C0C0;
+				border-radius: 6px;
+				color: #333;
+			}
+			p.info b { font-size: 14px; color: #333; }
+			p.info em { font-weight: bold; color: #333; }
+
+			/* -------------------------------- */
+
+			span.code
+			{
+				font-family: monospace;
+				font-size: 12px;
+				padding: 2px;
+				border-radius: 4px;
+				background-color: rgba(0,0,0,0.1);
+			}
+
+			/* -------------------------------- */
+
+			div#email span b,span#email_link2 b { display: none; }
+
+			div#main
+			{
+				max-width: 1200px;
+				margin-left: auto;
+				margin-right: auto;
+				padding: 2em;
+			}
+
+			div#header
+			{
+				color: #777;
+				padding-bottom: 8px;
+				line-height: 1.3em;
+			}
+			div#header div#title
+			{
+				font-size: 26px;
+				margin-bottom: 10px;
+				color: #10a771;
+			}
+			div#header div#version { font-weight: bold; }
+			div#header div, div#header a { padding: 1px 4px; border-radius: 3px; }
+			div#header div#email { padding: 0; }
+
+			div.section
+			{
+				padding: 12px;
+				border: solid 1px #ddd;
+				border-radius: 4px;
+				background-color: #fafafa;
+				margin-bottom: 1em;
+			}
+			div.troubleshooting { line-height: 1.2em; }
+			div.troubleshooting li { margin-bottom: 0.5em; }
+			div.troubleshooting li li { margin-bottom: 0; }
+
+			div#changelog_content { white-space: pre-wrap; line-height: 1.2em; }
+		</style>
+	</head>
+	<body>
+		<div id="main">
+			<div id="header">
+				<div id="title">Cartoon FX Remaster FREE</div>
+				<div id="version">R 1.4, May 2024 (<a href="#changelog">changelog</a>)</div>
+				<div id="copyright">© 2012-2024 - Jean Moreno</div>
+				<div id="email"><span id="email_link">jean&#46;&#109;oreno&#46;<b>nonsense</b>pu&#98;lic+&#117;&#110;i&#116;&#121;&#64;gmai&#108;&#46;com</span></div>
+			</div>
+			<hr>
+			<div class="section">
+				<h3>Table of Content</h2>
+				<ul>
+					<li><a href='#about'>About</a></li>
+					<li><a href='#usage'>Usage</a></li>
+					<li><a href='#troubleshooting'>Troubleshooting</a></li>
+					<li><a href='#changelog'>Changelog</a></li>
+				</ul>
+			</div>
+			<h2 id="about">About</h2>
+			<div class="section">
+				<p><em>"Cartoon FX Remaster FREE"</em> is a collection of <em>stylized visual effects</em> mainly made with Particle Systems (using Unity's CPU-based particle system 'Shuriken').</p>
+				<p>Featuring:
+				<ul>
+					<li>Custom shaders with special effects such as dissolve animation, UV distortion, lit particles, edge fading, HDR colors, single channel textures for reduced memory usage, shadow casting and dithering</li>
+					<li>Specialized shader to draw pixel-perfect circles and rings while reducing overdraw (using a low-poly ring mesh instead of a quad)</li>
+					<li>Optimized meshes where relevant to reduce overdraw/fill-rate issues</li>
+					<li>Custom script that can animate attached lights and perform screen-shake for relevant effects</li>
+					<li>High-resolution hand-drawn textures</li>
+					<li>Custom shader format that will only compile the code for the currently active render pipeline (Built-In Render Pipeline or Universal Render Pipeline (URP))</li>
+				</ul>
+				</p>
+				<p>This is the <em>free version</em> containing a sample of effects taken from the four commercial packs.<br>
+The license is the same as the commercial packs, including commercial use of the effects in games and apps, according to the license terms.<br>
+The full license can be found here: <a href="https://unity.com/legal/as-terms" target="_blank">https://unity.com/legal/as-terms</a> (Appendix 1, End User License Agreement)</p>
+				<br>
+				<h3>Render Pipelines</h3>
+				<p>"Cartoon FX Remaster FREE" supports the <em>Built-In</em> and <em>Universal Render Pipelines</em>.</p>
+				<p>It uses a special custom shader format that will only compile the relevant shader code for the currently active render pipeline in the project.</p>
+				<p>If you <em>change the render pipeline</em> after having imported the assets, then you will have to <em>reimport the shaders</em> so that they compile for the newly selected render pipeline (right-click on the <span class='code'>Shaders</span> folder, and hit <span class='code'>Reimport</span>).</p>
+				<br>
+				<h3>Legacy Effects</h3>
+				<p>"Cartoon FX Remaster FREE" is called so because it is a made from scratch remake of the old "Cartoon FX Pack FREE" set of effects, released circa 2012.<br>
+				Those old effects are still included if you are curious or want to use them: they are in the <span class='code'>Cartoon FX FREE (old legacy effects)</span> package and need to be extracted through Unity.
+				</p>
+			</div>
+
+			<h2 id="usage">Usage</h2>
+			<div class="section">
+				<h3>Spawn Effects</h3>
+				<p>"Cartoon FX Remaster FREE" effects are provided as individual prefabs. Simply spawn the prefabs (e.g. using <span class='code'><a href='https://docs.unity3d.com/ScriptReference/Object.Instantiate.html' target='_blank'>Instantiate</a></span>) and activate the instantiated GameObject to play the effect.</p>
+				<p>GameObjects will auto-destroy themselves when the effect has finished playing. You can change that behavior in the <span class='code'>CFXR_Effect</span> script attached (to either Destroy, Disable or do nothing after the effect has finished playing).</p>
+				
+				<br>
+				<h3>CFXR Script file</h3>
+				<p>You can change some <em>global script settings</em> in the <span class='code'>CFXR_Effect.cs</span> file, by uncommenting the global defines at the top:
+				<ul>
+					<li><b>Disable Camera Shake</b>: will disable all of the Camera shake code, if you don't need it or have your own solution</li>
+					<li><b>Disable Lights</b>: will keep the Lights attached to the effect deactivated</li>
+					<li><b>Disable Clear Behavior</b>: will disable the code handing the clear behavior after an effect has fully finished playing</li>
+				</ul>
+				</p>
+				<br>
+				<h3>CFXR Settings file</h3>
+				<p>You can change some <em>global shader settings</em> in the <span class='code'>CFXR_Settings.cginc</span> file:
+				<ul>
+					<li><b>Disable Soft Particles</b>: in case you don't need that feature, you can globally disable it for all CFXR effects (Soft Particles in Unity's built-in shaders will still work)</li>
+					<li><b>Orthographic Soft Particles</b>: if you are using an <em>Orthographic</em> camera, then enable this to make soft particles work properly</li>
+					<li><b>Global HDR Multiplier</b>: some effects use HDR colors (colors that go above the [0-1] range), so that they work nicely with post effects like bloom and simulate illuminated particles.
+					<br>Depending on your bloom settings, you may want to adjust that multiplier value to tune up or down the final colors.</li>
+					<li><b>Enable Point Lights</b>: enables additional lights affecting lit particles (else they will only be affected by the main directional light). This is enabled by default.
+				</ul>
+				</p>
+			</div>
+			<h2 id="troubleshooting">Troubleshooting</h2>
+			<div class="section troubleshooting">
+				<ul>
+					<li><b>License:</b> The full legal license can be found here: <a href="https://unity.com/legal/as-terms" target="_blank">https://unity.com/legal/as-terms</a> (see <em>Appendix 1: Asset Store End User License Agreement</em>)<br>
+					You can only use the effects in a commercial game or application when used as described in the above license.
+					<li><b>URP:</b> If almost all effects don't show when using URP, it likely is because the <em>'Depth Texture'</em> is disabled, and it is needed for soft particles to work.<br>You can either:
+						<ul>
+						<li>Enable the 'Depth Texture' option in the URP asset</li>
+						<li>Disable soft particles entirely by editing the <span class='code'>CFXR Settings.cginc</span> file and uncommenting the relevant line</li>
+						</ul>
+					</li>
+					<li><b>Magenta/Pink Effects:</b> If the shaders don't work and effects are <span style='color: #ff00ff;'>magenta</span>, then you may need to recompile the shaders for the currently active render pipeline: right-click on the <span class='code'>Shaders</span> folder, and hit <span class='code'>Reimport</span></li>
+					<li><b>Addressables/Asset Bundles:</b> if the effect don't work when using addressables, you can try to force the selected render pipeline for the shaders (select the shader files, and change the relevant option in their inspector).<br>
+					Some users also reported that using the <span class='code'>'Build&nbsp;>&nbsp;Clean&nbsp;Build&nbsp;>&nbsp;Build&nbsp;Pipeline&nbsp;Cache'</span> option in the Addressables window did solve the issue afterwards.</li>
+					<li><b>CFXR_Effect script:</b> Almost all prefabs have the CFXR_Effect script attached: it handles auto-destruction or deactivation of the GameObject once an effect has finished playing, as well as camera shake and light animation where relevant</li>
+					<li><b>Sorting:</b> If you have problems with z-sorting (transparent objects appearing in front of other when their position is actually behind), try changing the values in the <span class='code'>Particle&nbsp;System&nbsp;>&nbsp;Renderer&nbsp;>&nbsp;Sorting&nbsp;Fudge</span>; as long as the relative order is respected between the different particle systems of a same prefab, it should work ok.</li>
+					<li><b>Color Space:</b> Effects were authored using <em>Linear Color Space</em>; use that for the best results (in the <span class='code'>Player</span> project settings)</li>
+					<li><b>HDR:</b> If some effects show washed out colors, it likely is because HDR isn't enabled for the camera (or in the URP asset), and thus colors will be clamped.</li>
+				</ul>
+				<p>Please send me an email if you are having other issues or have any question: <span id="email_link2">jean&#46;&#109;oreno&#46;<b>nonsense</b>pu&#98;lic+&#117;&#110;i&#116;&#121;&#64;gmai&#108;&#46;com</span></p>
+			</div>
+			<h2 id="changelog">Changelog</h2>
+			<div class="section">
+				<div id="changelog_content"> R 1.4.0
+  - Shaders: Greatly reduced the number of possible shader variants (e.g. for Ubershader from roughly 130M to 12k possible variants)
+  - Shaders: Added option to force compilation for a specific render pipeline (select the shader file and look in its Inspector window)
+  - Shaders: fixed incorrect color for text effecs (green channel was always forced to 0.5)
+  - Moved the legacy effects into a Unitypackage file so that they are not imported by default anymore
+  - Updated and changed the readme format from txt to html for better readability and navigation
+  
+  R 1.3.1
+  - Removed 'NEW' suffix in shader names, as it was meant for internal testing
+  
+  R 1.3.0
+  - Replaced the old .shader files with a new .cfxrshader file format, that will only compile them for the currently active render pipeline (this should fix all issues related to the effects not working in builds using Addressables or Asset Bundles)
+  - Harmonized version numbering across all Cartoon FX packs
+  
+  R 1.0.7
+  - Distortion effects now work with URP 2D Renderer
+  
+  R 1.0.6
+  - Fixed possible shader compilation error when Single-pass instanced rendering is enabled
+  
+  R 1.0.5
+  - Removed mentions of the "Cartoon FX Easy Editor" in the readme files as it is not included with the free version of Cartoon FX Remaster
+  
+  R 1.0.4
+  - Reorganized the shader code in a separate file to avoid a 'multi_compile' hack, which will hopefully fix issues with Asset Bundles/Addressables
+  
+  R 1.0.3
+  - Improved CFXR_ParticleText usability when toggling the "is Dynamic" flag on an existing text effect
+  - Disabled mesh GPU instancing in the shaders because it was causing too many issues (even when using Unity's default particle shader)
+  
+  R 1.0.2
+  - Removed GPU instancing support on the "CFXR Procedural Ring" shader, because it visually breaks it
+  - Fixed compilation error related to 'projPos' in the "CFXR Particle Glow" shader
+  
+  R 1.0.1
+  - Added support for GPU instancing in the shaders
+  - Fixed possible build error when adding a text effect in a prefab due to HideFlags
+  
+  R 1.0.0
+  - First release of "Cartoon FX Remaster FREE" with new free effects taken from all four Remaster packs</div>
+			</div>
+		</div>
+	</body>
+	<script>
+		// email link
+		let span = document.getElementById("email_link");
+		let email = span.innerText;
+		span.innerHTML = "<a href='mailto:" + email + "'>" + email + "</a>";
+		
+		span = document.getElementById("email_link2");
+		email = span.innerText;
+		span.innerHTML = "<a href='mailto:" + email + "'>" + email + "</a>";
+
+		// changelog formatting
+		let changelog_div = document.getElementById("changelog_content");
+		changelog_div.innerText = changelog_div.innerText.trim();
+	</script>
+</html>

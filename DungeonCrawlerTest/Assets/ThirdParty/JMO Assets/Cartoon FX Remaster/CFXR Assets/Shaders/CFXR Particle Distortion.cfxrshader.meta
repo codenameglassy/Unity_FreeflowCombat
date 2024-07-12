@@ -1,0 +1,48 @@
+fileFormatVersion: 2
+guid: 304630dc6079b47419e5333f284382fd
+ScriptedImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 2
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+  script: {fileID: 11500000, guid: fe56ec25963759b49955809beeb4324b, type: 3}
+  detectedRenderPipeline: Built-In Render Pipeline
+  strippedLinesCount: 70
+  shaderSourceCode: "//--------------------------------------------------------------------------------------------------------------------------------\r\n//
+    Cartoon FX\r\n// (c) 2012-2020 Jean Moreno\r\n//--------------------------------------------------------------------------------------------------------------------------------\r\n\r\nShader
+    \"Cartoon FX/Remaster/Particle Screen Distortion NEW\"\r\n{\r\n\tProperties\r\n\t{
+    \r\n\t\t[Toggle(_ALPHATEST_ON)] _UseAlphaClip (\"Alpha Clipping (Cutout)\", Float)
+    = 0\r\n\t//# IF_KEYWORD _ALPHATEST_ON\r\n\t\t_Cutoff (\"Cutoff Threshold\", Range(0.001,1))
+    = 0.1\r\n\t//# END_IF\r\n\t\r\n\t//# --------------------------------------------------------\r\n\t\r\n\t\t[Toggle(_FADING_ON)]
+    _UseSP (\"Soft Particles\", Float) = 0\r\n\t//# IF_KEYWORD _FADING_ON\r\n\t\t_SoftParticlesFadeDistanceNear
+    (\"Near Fade\", Float) = 0\r\n\t\t_SoftParticlesFadeDistanceFar (\"Far Fade\",
+    Float) = 1\r\n\t//# END_IF\r\n\r\n\t//# \r\n\r\n\t\t[Toggle(_CFXR_EDGE_FADING)]
+    _UseEF (\"Edge Fade\", Float) = 0\r\n\t//# IF_KEYWORD _CFXR_EDGE_FADING\r\n\t\t_EdgeFadePow
+    (\"Edge Fade Power\", Float) = 1\r\n\t//# END_IF\r\n\r\n\t//# ========================================================\r\n\t//#
+    Texture\r\n\t//#\r\n\t\t[NoScaleOffset] _ScreenDistortionTex (\"Distortion Texture\",
+    2D) = \"bump\" {}\r\n\t\t_ScreenDistortionScale (\"Distortion Scale\", Range(-0.5,
+    0.5)) = 0.1\r\n\t\t\r\n\t//# ========================================================\r\n\t//#
+    Debug\r\n\t//# \r\n\t\t\r\n\t\t[Toggle(_DEBUG_VISUALIZE_DISTORTION)] _DebugVisualize
+    (\"Visualize Distortion Particles\", Float) = 0 \r\n\t}\r\n\t\r\n\tCategory\r\n\t{\r\n\t\tTags\r\n\t\t{\r\n\t\t\t\"Queue\"=\"Transparent\"\r\n\t\t\t\"IgnoreProjector\"=\"True\"\r\n\t\t\t\"RenderType\"=\"Transparent\"\r\n\t\t\t\"PreviewType\"=\"Plane\"\r\n\t\t}\r\n\r\n\t\tBlend
+    SrcAlpha OneMinusSrcAlpha, One One\r\n\t\tZWrite Off\r\n\t\tCull  Off\r\n\r\n\r\n\t\t//====================================================================================================================================\r\n\t\t//
+    Built-in Rendering Pipeline\r\n\r\n\t\tSubShader\r\n\t\t{\r\n\t\t\tGrabPass\r\n\t\t\t{\r\n\t\t\t\tTags
+    { \"LightMode\" = \"Always\" }\r\n\t\t\t\t\"_GrabTexture\"\r\n\t\t\t}\r\n\t\t\t\r\n\t\t\tPass\r\n\t\t\t{\r\n\t\t\t\tName
+    \"BASE\"\r\n\t\t\t\tTags { \"LightMode\"=\"ForwardBase\" }\r\n\r\n\t\t\t\tCGPROGRAM\r\n\r\n\t\t\t\t#pragma
+    vertex vertex_program\r\n\t\t\t\t#pragma fragment fragment_program\r\n\r\n\t\t\t\t//vertInstancingSetup
+    writes to global, not allowed with DXC\r\n\t\t\t\t// #pragma never_use_dxc\r\n\t\t\t\t//
+    #pragma target 2.5\r\n\t\t\t\t// #pragma multi_compile_instancing\r\n\t\t\t\t//
+    #pragma instancing_options procedural:vertInstancingSetup\r\n\r\n\t\t\t\t#pragma
+    multi_compile_particles\r\n\t\t\t\t#pragma multi_compile_fog\r\n\t\t\t\t//#pragma
+    multi_compile_fwdbase\r\n\t\t\t\t//#pragma multi_compile SHADOWS_SCREEN\r\n\t\t\t\t\r\n\t\t\t\t//
+    Using the same keywords as Unity's Standard Particle shader to minimize project-wide
+    keyword usage\r\n\t\t\t\t#pragma shader_feature_local _ _FADING_ON\r\n\t\t\t\t#pragma
+    shader_feature_local _ _ALPHATEST_ON\r\n\t\t\t\t#pragma shader_feature_local
+    _ _DEBUG_VISUALIZE_DISTORTION\r\n\r\n\t\t\t\t#include \"UnityStandardParticleInstancing.cginc\"\r\n\r\n\t\t\t\t#define
+    CFXR_SCREEN_DISTORTION_SHADER\r\n\t\t\t\t#include \"CFXR_PASSES.cginc\"\r\n\r\n\t\t\t\tENDCG\r\n\t\t\t}\r\n\t\t}\r\n\t}\r\n\t\r\n\tCustomEditor
+    \"CartoonFX.MaterialInspector\"\r\n}\r\n\r\n"
+  shaderName: Cartoon FX/Remaster/Particle Screen Distortion NEW
+  shaderErrors: []
+  variantCount: 64
+  variantCountUsed: 2

@@ -1,0 +1,206 @@
+fileFormatVersion: 2
+guid: 1a29b4d27eb8b04479ef89c00dea533d
+ScriptedImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 2
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+  script: {fileID: 11500000, guid: fe56ec25963759b49955809beeb4324b, type: 3}
+  detectedRenderPipeline: Built-In Render Pipeline
+  strippedLinesCount: 0
+  shaderSourceCode: "//--------------------------------------------------------------------------------------------------------------------------------\r\n//
+    Cartoon FX\r\n// (c) 2012-2020 Jean Moreno\r\n//--------------------------------------------------------------------------------------------------------------------------------\r\n\r\nShader
+    \"Cartoon FX/Remaster/Particle Ubershader\"\r\n{\r\n\tProperties\r\n\t{\r\n\t//#
+    Blending\r\n\t//#\r\n\t\t[Enum(UnityEngine.Rendering.BlendMode)] _SrcBlend (\"Blend
+    Source\", Float) = 5\r\n\t\t[Enum(UnityEngine.Rendering.BlendMode)] _DstBlend
+    (\"Blend Destination\", Float) = 10\r\n\t\t[KeywordEnumNoPrefix(Alpha Blending,
+    _ALPHABLEND_ON, Alpha Blending Premultiplied, _ALPHAPREMULTIPLY_ON, Multiplicative,
+    _ALPHAMODULATE_ON, Additive, _CFXR_ADDITIVE)] _BlendingType (\"Blending Type\",
+    Float) = 0\r\n\r\n\t//# \r\n\t\t[ToggleNoKeyword] _ZWrite (\"Depth Write\", Float)
+    = 0\r\n\t\t[Toggle(_ALPHATEST_ON)] _UseAlphaClip (\"Alpha Clipping (Cutout)\",
+    Float) = 0\r\n\t//# IF_KEYWORD _ALPHATEST_ON\r\n\t\t_Cutoff (\"Cutoff Threshold\",
+    Range(0.001,1)) = 0.1\r\n\t//# END_IF\r\n\t\r\n\t//# --------------------------------------------------------\r\n\t\r\n\t\t[Toggle(_FADING_ON)]
+    _UseSP (\"Soft Particles\", Float) = 0\r\n\t//# IF_KEYWORD _FADING_ON\r\n\t\t_SoftParticlesFadeDistanceNear
+    (\"Near Fade\", Float) = 0\r\n\t\t_SoftParticlesFadeDistanceFar (\"Far Fade\",
+    Float) = 1\r\n\t//# END_IF\r\n\r\n\t//# \r\n\r\n\t\t[Toggle(_CFXR_EDGE_FADING)]
+    _UseEF (\"Edge Fade\", Float) = 0\r\n\t//# IF_KEYWORD _CFXR_EDGE_FADING\r\n\t\t_EdgeFadePow
+    (\"Edge Fade Power\", Float) = 1\r\n\t//# END_IF\r\n\r\n\t//# \r\n\r\n\t//# ========================================================\r\n\r\n\t//#
+    Effects\r\n\t//#\r\n\r\n\t\t[Toggle(_CFXR_DISSOLVE)] _UseDissolve (\"Enable Dissolve\",
+    Float) = 0\r\n\t//# IF_KEYWORD _CFXR_DISSOLVE\r\n\t\t_DissolveTex (\"Dissolve
+    Texture\", 2D) = \"gray\" {}\r\n\t\t_DissolveSmooth (\"Dissolve Smoothing\",
+    Range(0.0001,0.5)) = 0.1\r\n\t\t[ToggleNoKeyword] _InvertDissolveTex (\"Invert
+    Dissolve Texture\", Float) = 0\r\n\t\t[ToggleNoKeyword] _DoubleDissolve (\"Double
+    Dissolve\", Float) = 0\r\n\t\t[Toggle(_CFXR_DISSOLVE_ALONG_UV_X)] _UseDissolveOffsetUV
+    (\"Dissolve offset along X\", Float) = 0\r\n\t//# IF_KEYWORD _CFXR_DISSOLVE_ALONG_UV_X\r\n\t\t_DissolveScroll
+    (\"UV Scrolling\", Vector) = (0,0,0,0)\r\n\t//# END_IF\r\n\t//# END_IF\r\n\r\n\t//#
+    --------------------------------------------------------\r\n\r\n\t\t[Toggle(_CFXR_UV_DISTORTION)]
+    _UseUVDistortion (\"Enable UV Distortion\", Float) = 0\r\n\t//# IF_KEYWORD _CFXR_UV_DISTORTION\r\n\t\t\r\n\t\t[NoScaleOffset]
+    _DistortTex (\"Distortion Texture\", 2D) = \"gray\" {}\r\n\t\t_DistortScrolling
+    (\"Scroll (XY) Tile (ZW)\", Vector) = (0,0,1,1)\r\n\t\t[Toggle(_CFXR_UV2_DISTORTION)]
+    _UseUV2Distortion (\"Use UV2\", Float) = 0\r\n\t\t_Distort (\"Distortion Strength\",
+    Range(0,2.0)) = 0.1\r\n\t\t[ToggleNoKeyword] _FadeAlongU (\"Fade along Y\", Float)
+    = 0\r\n\t\t[Toggle(_CFXR_UV_DISTORTION_ADD)] _UVDistortionAdd (\"Add to base
+    UV\", Float) = 0\r\n\t//# END_IF\r\n\r\n\t//# ========================================================\r\n\r\n\t//#
+    Colors\r\n\t//#\r\n\r\n\t\t[NoScaleOffset] _MainTex (\"Texture\", 2D) = \"white\"
+    {}\r\n\t\t[Toggle(_CFXR_SINGLE_CHANNEL)] _SingleChannel (\"Single Channel Texture\",
+    Float) = 0\r\n\r\n\t//# --------------------------------------------------------\r\n\r\n\t\t[KeywordEnum(Off,1x,2x)]
+    _CFXR_OVERLAYTEX (\"Enable Overlay Texture\", Float) = 0\r\n\t//# IF_KEYWORD
+    _CFXR_OVERLAYTEX_1X || _CFXR_OVERLAYTEX_2X\r\n\t\t[KeywordEnum(RGBA,RGB,A)] _CFXR_OVERLAYBLEND
+    (\"Overlay Blend Channels\", Float) = 0\r\n\t\t[NoScaleOffset] _OverlayTex (\"Overlay
+    Texture\", 2D) = \"white\" {}\r\n\t\t_OverlayTex_Scroll (\"Overlay Scrolling
+    / Scale\", Vector) = (0.1,0.1,1,1)\r\n\t//# END_IF\r\n\r\n\t//# --------------------------------------------------------\r\n\r\n\t\t[Toggle(_FLIPBOOK_BLENDING)]
+    _UseFB (\"Flipbook Blending\", Float) = 0\r\n\r\n\t//# --------------------------------------------------------\r\n\r\n\t\t[Toggle(_CFXR_SECONDCOLOR_LERP)]
+    _UseSecondColor (\"Secondary Vertex Color (TEXCOORD2)\", Float) = 0\r\n\t//#
+    IF_KEYWORD _CFXR_SECONDCOLOR_LERP\r\n\t\t[NoScaleOffset] _SecondColorTex (\"Second
+    Color Map\", 2D) = \"black\" {}\r\n\t\t_SecondColorSmooth (\"Second Color Smoothing\",
+    Range(0.0001,0.5)) = 0.2\r\n\t//# END_IF\r\n\r\n\t//# --------------------------------------------------------\r\n\r\n\t\t[Toggle(_CFXR_FONT_COLORS)]
+    _UseFontColor (\"Use Font Colors\", Float) = 0\r\n\r\n//\t//# --------------------------------------------------------\r\n//\r\n//\t[Toggle(_CFXR_GRADIENTMAP)]
+    _UseGradientMap (\"Gradient Map\", Float) = 0\r\n//\t//# IF_KEYWORD _CFXR_GRADIENTMAP\r\n//\t\t[NoScaleOffset]
+    _GradientMap (\"Gradient Map\", 2D) = \"black\" {}\r\n//\t//# END_IF\r\n\r\n\t//#
+    --------------------------------------------------------\r\n\r\n\t\t[Toggle(_CFXR_HDR_BOOST)]
+    _HdrBoost (\"Enable HDR Multiplier\", Float) = 0\r\n\t//# IF_KEYWORD _CFXR_HDR_BOOST\r\n\t\t
+    _HdrMultiply (\"HDR Multiplier\", Float) = 2\r\n\t//# END_IF\r\n\r\n\t//# --------------------------------------------------------\r\n\t\r\n\t//#
+    Lighting\r\n\t//#\r\n\r\n\t\t[KeywordEnumNoPrefix(Off, _, Direct, _CFXR_LIGHTING_DIRECT,
+    Indirect, _CFXR_LIGHTING_INDIRECT, Both, _CFXR_LIGHTING_ALL)] _UseLighting (\"Mode\",
+    Float) = 0\r\n\t//# IF_KEYWORD _CFXR_LIGHTING_DIRECT || _CFXR_LIGHTING_ALL\r\n\t\t_DirectLightingRamp
+    (\"Direct Lighting Ramp\", Range(0,1)) = 1.0\r\n\t//# END_IF\r\n\t//# \r\n\t//#
+    IF_KEYWORD _CFXR_LIGHTING_DIRECT || _CFXR_LIGHTING_INDIRECT || _CFXR_LIGHTING_ALL\r\n\t\t[Toggle(_NORMALMAP)]
+    _UseNormalMap (\"Enable Normal Map\", Float) = 0\r\n\t//# IF_KEYWORD _NORMALMAP\r\n\t\t[NoScaleOffset]
+    _BumpMap (\"Normal Map\", 2D) = \"bump\" {}\r\n\t\t_BumpScale (\"Normal Scale\",
+    Range(-1, 1)) = 1.0\r\n\t//# END_IF\r\n\t//# \r\n\t\t[Toggle(_EMISSION)] _UseEmission
+    (\"Enable Emission (TEXCOORD2)\", Float) = 0\r\n\t//# \r\n\t\t[Toggle(_CFXR_LIGHTING_WPOS_OFFSET)]
+    _UseLightingWorldPosOffset (\"Enable World Pos. Offset\", Float) = 0\r\n\t//#
+    IF_KEYWORD _CFXR_LIGHTING_WPOS_OFFSET\r\n\t\t_LightingWorldPosStrength (\"Offset
+    Strength\", Range(0,1)) = 0.2\r\n\t//# END_IF\r\n\t//# \r\n\t\t[Toggle(_CFXR_LIGHTING_BACK)]
+    _UseBackLighting (\"Enable Backlighting\", Float) = 0\r\n\t//# IF_KEYWORD _CFXR_LIGHTING_BACK\r\n\t\t_DirLightScreenAtten
+    (\"Dir. Light Screen Attenuation\", Range(0, 5)) = 1.0\r\n\t\t_BacklightTransmittance
+    (\"Backlight Transmittance\", Range(0, 2)) = 1.0\r\n\t//# END_IF\r\n\t//# \r\n\t//#
+    IF_KEYWORD _CFXR_LIGHTING_INDIRECT || _CFXR_LIGHTING_ALL\r\n\t\t_IndirectLightingMix
+    (\"Indirect Lighting Mix\", Range(0,1)) = 0.5\r\n\t//# END_IF\r\n\t\t_ShadowColor
+    (\"Shadow Color\", Color) = (0,0,0,1)\r\n\t//# \r\n\t//# END_IF\r\n\r\n\t//#
+    ========================================================\r\n\t//# Shadows\r\n\t//#\r\n\r\n\t\t[KeywordEnum(Off,On,CustomTexture)]
+    _CFXR_DITHERED_SHADOWS (\"Dithered Shadows\", Float) = 0\r\n\t//# IF_KEYWORD
+    _CFXR_DITHERED_SHADOWS_ON || _CFXR_DITHERED_SHADOWS_CUSTOMTEXTURE\r\n\t\t_ShadowStrength\t\t(\"Shadows
+    Strength Max\", Range(0,1)) = 1.0\r\n\t\t//#\tIF_KEYWORD _CFXR_DITHERED_SHADOWS_CUSTOMTEXTURE\r\n\t\t_DitherCustom\t\t(\"Dithering
+    3D Texture\", 3D) = \"black\" {}\r\n\t\t//#\tEND_IF\r\n\t//# END_IF\r\n\r\n//\t\t_ReceivedShadowsStrength
+    (\"Received Shadows Strength\", Range(0,1)) = 0.5\r\n\t}\r\n\t\r\n\tCategory\r\n\t{\r\n\t\tTags\r\n\t\t{\r\n\t\t\t\"Queue\"=\"Transparent\"\r\n\t\t\t\"IgnoreProjector\"=\"True\"\r\n\t\t\t\"RenderType\"=\"Transparent\"\r\n\t\t\t\"PreviewType\"=\"Plane\"\r\n\t\t}\r\n\r\n\t\tBlend
+    [_SrcBlend] [_DstBlend], One One\r\n\t\tZWrite [_ZWrite]\r\n\t\tCull  Off\r\n\r\n\t\t//====================================================================================================================================\r\n\t\t//
+    Universal Rendering Pipeline\r\n\r\n\t\tSubshader\r\n\t\t{\r\n\t\t\tPass\r\n\t\t\t{\r\n\t\t\t\tName
+    \"BASE_URP\"\r\n\t\t\t\tTags { \"LightMode\"=\"UniversalForward\" }\r\n\r\n\t\t\t\tCGPROGRAM\r\n\r\n\t\t\t\t#pragma
+    vertex vertex_program\r\n\t\t\t\t#pragma fragment fragment_program\r\n\t\t\t\t\r\n\t\t\t\t#pragma
+    target 2.0\r\n\t\t\t\t\r\n\t\t\t\t// #pragma multi_compile_instancing\r\n\t\t\t\t//
+    #pragma instancing_options procedural:ParticleInstancingSetup\r\n\r\n\t\t\t\t#pragma
+    multi_compile_fog\r\n\t\t\t\t//#pragma multi_compile_fwdbase\r\n\t\t\t\t//#pragma
+    multi_compile SHADOWS_SCREEN\r\n\r\n\t\t\t\t#pragma shader_feature_local _ _CFXR_SINGLE_CHANNEL\r\n\t\t\t\t#pragma
+    shader_feature_local _ _CFXR_DISSOLVE\r\n\t\t\t\t#pragma shader_feature_local
+    _ _CFXR_DISSOLVE_ALONG_UV_X\r\n\t\t\t\t#pragma shader_feature_local _ _CFXR_UV_DISTORTION\r\n\t\t\t\t#pragma
+    shader_feature_local _ _CFXR_UV2_DISTORTION\r\n\t\t\t\t#pragma shader_feature_local
+    _ _CFXR_UV_DISTORTION_ADD\r\n\t\t\t\t// #pragma shader_feature_local _ _CFXR_GRADIENTMAP\r\n\t\t\t\t#pragma
+    shader_feature_local _ _CFXR_SECONDCOLOR_LERP _CFXR_FONT_COLORS\r\n\t\t\t\t#pragma
+    shader_feature_local _ _CFXR_OVERLAYTEX_1X _CFXR_OVERLAYTEX_2X\r\n\t\t\t\t#pragma
+    shader_feature_local _ _CFXR_OVERLAYBLEND_A _CFXR_OVERLAYBLEND_RGB\r\n\t\t\t\t#pragma
+    shader_feature_local _ _CFXR_HDR_BOOST\r\n\t\t\t\t#pragma shader_feature_local
+    _ _CFXR_EDGE_FADING\r\n\t\t\t\t#pragma shader_feature_local _ _CFXR_LIGHTING_DIRECT
+    _CFXR_LIGHTING_INDIRECT _CFXR_LIGHTING_ALL\r\n\t\t\t\t#pragma shader_feature_local
+    _ _CFXR_LIGHTING_WPOS_OFFSET\r\n\t\t\t\t#pragma shader_feature_local _ _CFXR_LIGHTING_BACK\r\n\r\n\t\t\t\t//
+    Using the same keywords as Unity's Standard Particle shader to minimize project-wide
+    keyword usage\r\n\t\t\t\t#pragma shader_feature_local _ _NORMALMAP\r\n\t\t\t\t#pragma
+    shader_feature_local _ _EMISSION\r\n\t\t\t\t#pragma shader_feature_local _ _FLIPBOOK_BLENDING\r\n\t\t\t\t#pragma
+    shader_feature_local _ _FADING_ON\r\n\t\t\t\t#pragma shader_feature_local _ _ALPHATEST_ON\r\n\t\t\t\t#pragma
+    shader_feature_local _ _ALPHABLEND_ON _ALPHAPREMULTIPLY_ON _ALPHAMODULATE_ON
+    _CFXR_ADDITIVE\r\n\r\n\t\t\t\t#define CFXR_URP\r\n\t\t\t\t#define CFXR_UBERSHADER\r\n\t\t\t\t#include
+    \"CFXR_PASSES.cginc\"\r\n\r\n\t\t\t\tENDCG\r\n\t\t\t}\r\n\t\t\t\r\n\t\t\t// Same
+    as above with 'Universal2D' instead and DISABLE_SOFT_PARTICLES keyword\r\n\t\t\tPass\r\n\t\t\t{\r\n\t\t\t\tName
+    \"BASE_URP\"\r\n\t\t\t\tTags { \"LightMode\"=\"Universal2D\" }\r\n\r\n\t\t\t\tCGPROGRAM\r\n\r\n\t\t\t\t#pragma
+    vertex vertex_program\r\n\t\t\t\t#pragma fragment fragment_program\r\n\t\t\t\t\r\n\t\t\t\t#pragma
+    target 2.0\r\n\t\t\t\t\r\n\t\t\t\t// #pragma multi_compile_instancing\r\n\t\t\t\t//
+    #pragma instancing_options procedural:ParticleInstancingSetup\r\n\r\n\t\t\t\t#pragma
+    multi_compile_fog\r\n\t\t\t\t//#pragma multi_compile_fwdbase\r\n\t\t\t\t//#pragma
+    multi_compile SHADOWS_SCREEN\r\n\r\n\t\t\t\t#pragma shader_feature_local _ _CFXR_SINGLE_CHANNEL\r\n\t\t\t\t#pragma
+    shader_feature_local _ _CFXR_DISSOLVE\r\n\t\t\t\t#pragma shader_feature_local
+    _ _CFXR_DISSOLVE_ALONG_UV_X\r\n\t\t\t\t#pragma shader_feature_local _ _CFXR_UV_DISTORTION\r\n\t\t\t\t#pragma
+    shader_feature_local _ _CFXR_UV2_DISTORTION\r\n\t\t\t\t#pragma shader_feature_local
+    _ _CFXR_UV_DISTORTION_ADD\r\n\t\t\t\t// #pragma shader_feature_local _ _CFXR_GRADIENTMAP\r\n\t\t\t\t#pragma
+    shader_feature_local _ _CFXR_SECONDCOLOR_LERP _CFXR_FONT_COLORS\r\n\t\t\t\t#pragma
+    shader_feature_local _ _CFXR_OVERLAYTEX_1X _CFXR_OVERLAYTEX_2X\r\n\t\t\t\t#pragma
+    shader_feature_local _ _CFXR_OVERLAYBLEND_A _CFXR_OVERLAYBLEND_RGB\r\n\t\t\t\t#pragma
+    shader_feature_local _ _CFXR_HDR_BOOST\r\n\t\t\t\t#pragma shader_feature_local
+    _ _CFXR_EDGE_FADING\r\n\t\t\t\t#pragma shader_feature_local _ _CFXR_LIGHTING_DIRECT
+    _CFXR_LIGHTING_INDIRECT _CFXR_LIGHTING_ALL\r\n\t\t\t\t#pragma shader_feature_local
+    _ _CFXR_LIGHTING_WPOS_OFFSET\r\n\t\t\t\t#pragma shader_feature_local _ _CFXR_LIGHTING_BACK\r\n\r\n\t\t\t\t//
+    Using the same keywords as Unity's Standard Particle shader to minimize project-wide
+    keyword usage\r\n\t\t\t\t#pragma shader_feature_local _ _NORMALMAP\r\n\t\t\t\t#pragma
+    shader_feature_local _ _EMISSION\r\n\t\t\t\t#pragma shader_feature_local _ _FLIPBOOK_BLENDING\r\n\t\t\t\t#pragma
+    shader_feature_local _ _FADING_ON\r\n\t\t\t\t#pragma shader_feature_local _ _ALPHATEST_ON\r\n\t\t\t\t#pragma
+    shader_feature_local _ _ALPHABLEND_ON _ALPHAPREMULTIPLY_ON _ALPHAMODULATE_ON
+    _CFXR_ADDITIVE\r\n\r\n\t\t\t\t#define CFXR_UPR\r\n\t\t\t\t#define DISABLE_SOFT_PARTICLES\r\n\t\t\t\t#define
+    CFXR_UBERSHADER\r\n\t\t\t\t#include \"CFXR_PASSES.cginc\"\r\n\r\n\t\t\t\tENDCG\r\n\t\t\t}\r\n\r\n\t\t\t//--------------------------------------------------------------------------------------------------------------------------------\r\n\r\n\t\t\tPass\r\n\t\t\t{\r\n\t\t\t\tName
+    \"ShadowCaster\"\r\n\t\t\t\tTags { \"LightMode\" = \"ShadowCaster\" }\r\n\r\n\t\t\t\tBlendOp
+    Add\r\n\t\t\t\tBlend One Zero\r\n\t\t\t\tZWrite On\r\n\t\t\t\tCull Off\r\n\r\n\t\t\t\tCGPROGRAM\r\n\r\n\t\t\t\t#pragma
+    vertex vertex_program\r\n\t\t\t\t#pragma fragment fragment_program\r\n\r\n\t\t\t\t#pragma
+    shader_feature_local _ _CFXR_SINGLE_CHANNEL\r\n\t\t\t\t#pragma shader_feature_local
+    _ _CFXR_DISSOLVE\r\n\t\t\t\t#pragma shader_feature_local _ _CFXR_DISSOLVE_ALONG_UV_X\r\n\t\t\t\t#pragma
+    shader_feature_local _ _CFXR_UV_DISTORTION\r\n\t\t\t\t#pragma shader_feature_local
+    _ _CFXR_UV2_DISTORTION\r\n\t\t\t\t#pragma shader_feature_local _ _CFXR_UV_DISTORTION_ADD\r\n\t\t\t\t#pragma
+    shader_feature_local _ _CFXR_OVERLAYTEX_1X _CFXR_OVERLAYTEX_2X\r\n\t\t\t\t#pragma
+    shader_feature_local _ _CFXR_OVERLAYBLEND_A _CFXR_OVERLAYBLEND_RGB\r\n\t\t\t\t#pragma
+    shader_feature_local _ _FLIPBOOK_BLENDING\r\n\r\n\t\t\t\t#pragma shader_feature_local
+    _ _ALPHATEST_ON\r\n\t\t\t\t#pragma shader_feature_local _ _ALPHABLEND_ON _ALPHAPREMULTIPLY_ON
+    _ALPHAMODULATE_ON _CFXR_ADDITIVE\r\n\r\n\t\t\t\t#pragma multi_compile_shadowcaster\r\n\t\t\t\t#pragma
+    shader_feature_local _ _CFXR_DITHERED_SHADOWS_ON _CFXR_DITHERED_SHADOWS_CUSTOMTEXTURE\r\n\r\n\t\t\t#if
+    (_CFXR_DITHERED_SHADOWS_ON || _CFXR_DITHERED_SHADOWS_CUSTOMTEXTURE) && !defined(SHADER_API_GLES)\r\n\t\t\t\t#pragma
+    target 3.0\t\t//needed for VPOS\r\n\t\t\t#endif\r\n\r\n\t\t\t\t#define CFXR_UPR\r\n\t\t\t\t#define
+    PASS_SHADOW_CASTER\r\n\t\t\t\t#define CFXR_UBERSHADER\r\n\t\t\t\t#include \"CFXR_PASSES.cginc\"\r\n\r\n\t\t\t\tENDCG\r\n\t\t\t}\r\n\t\t}\r\n\r\n\t\t//====================================================================================================================================\r\n\t\t//
+    Built-in Rendering Pipeline\r\n\r\n\t\tSubShader\r\n\t\t{\r\n\t\t\tPass\r\n\t\t\t{\r\n\t\t\t\tName
+    \"BASE\"\r\n\t\t\t\tTags { \"LightMode\"=\"ForwardBase\" }\r\n\r\n\t\t\t\tCGPROGRAM\r\n\r\n\t\t\t\t#pragma
+    vertex vertex_program\r\n\t\t\t\t#pragma fragment fragment_program\r\n\r\n\t\t\t\t//vertInstancingSetup
+    writes to global, not allowed with DXC\r\n\t\t\t\t// #pragma never_use_dxc\r\n\t\t\t\t//
+    #pragma target 2.5\r\n\t\t\t\t// #pragma multi_compile_instancing\r\n\t\t\t\t//
+    #pragma instancing_options procedural:vertInstancingSetup\r\n\r\n\t\t\t\t#pragma
+    multi_compile_particles\r\n\t\t\t\t#pragma multi_compile_fog\r\n\t\t\t\t//#pragma
+    multi_compile_fwdbase\r\n\t\t\t\t//#pragma multi_compile SHADOWS_SCREEN\r\n\r\n\t\t\t\t#pragma
+    shader_feature_local _ _CFXR_SINGLE_CHANNEL\r\n\t\t\t\t#pragma shader_feature_local
+    _ _CFXR_DISSOLVE\r\n\t\t\t\t#pragma shader_feature_local _ _CFXR_DISSOLVE_ALONG_UV_X\r\n\t\t\t\t#pragma
+    shader_feature_local _ _CFXR_UV_DISTORTION\r\n\t\t\t\t#pragma shader_feature_local
+    _ _CFXR_UV2_DISTORTION\r\n\t\t\t\t#pragma shader_feature_local _ _CFXR_UV_DISTORTION_ADD\r\n\t\t\t\t//
+    #pragma shader_feature_local _ _CFXR_GRADIENTMAP\r\n\t\t\t\t#pragma shader_feature_local
+    _ _CFXR_SECONDCOLOR_LERP _CFXR_FONT_COLORS\r\n\t\t\t\t#pragma shader_feature_local
+    _ _CFXR_OVERLAYTEX_1X _CFXR_OVERLAYTEX_2X\r\n\t\t\t\t#pragma shader_feature_local
+    _ _CFXR_OVERLAYBLEND_A _CFXR_OVERLAYBLEND_RGB\r\n\t\t\t\t#pragma shader_feature_local
+    _ _CFXR_HDR_BOOST\r\n\t\t\t\t#pragma shader_feature_local _ _CFXR_EDGE_FADING\r\n\t\t\t\t#pragma
+    shader_feature_local _ _CFXR_LIGHTING_DIRECT _CFXR_LIGHTING_INDIRECT _CFXR_LIGHTING_ALL\r\n\t\t\t\t#pragma
+    shader_feature_local _ _CFXR_LIGHTING_WPOS_OFFSET\r\n\t\t\t\t#pragma shader_feature_local
+    _ _CFXR_LIGHTING_BACK\r\n\r\n\t\t\t\t// Using the same keywords as Unity's Standard
+    Particle shader to minimize project-wide keyword usage\r\n\t\t\t\t#pragma shader_feature_local
+    _ _NORMALMAP\r\n\t\t\t\t#pragma shader_feature_local _ _EMISSION\r\n\t\t\t\t#pragma
+    shader_feature_local _ _FLIPBOOK_BLENDING\r\n\t\t\t\t#pragma shader_feature_local
+    _ _FADING_ON\r\n\t\t\t\t#pragma shader_feature_local _ _ALPHATEST_ON\r\n\t\t\t\t#pragma
+    shader_feature_local _ _ALPHABLEND_ON _ALPHAPREMULTIPLY_ON _ALPHAMODULATE_ON
+    _CFXR_ADDITIVE\r\n\r\n\t\t\t\t#include \"UnityStandardParticleInstancing.cginc\"\r\n\t\t\t\t#define
+    CFXR_UBERSHADER\r\n\t\t\t\t#include \"CFXR_PASSES.cginc\"\r\n\r\n\t\t\t\tENDCG\r\n\t\t\t}\r\n\r\n\t\t\t//--------------------------------------------------------------------------------------------------------------------------------\r\n\r\n\t\t\tPass\r\n\t\t\t{\r\n\t\t\t\tName
+    \"ShadowCaster\"\r\n\t\t\t\tTags { \"LightMode\" = \"ShadowCaster\" }\r\n\r\n\t\t\t\tBlendOp
+    Add\r\n\t\t\t\tBlend One Zero\r\n\t\t\t\tZWrite On\r\n\t\t\t\tCull Off\r\n\r\n\t\t\t\tCGPROGRAM\r\n\r\n\t\t\t\t#pragma
+    vertex vertex_program\r\n\t\t\t\t#pragma fragment fragment_program\r\n\r\n\t\t\t\t//vertInstancingSetup
+    writes to global, not allowed with DXC\r\n\t\t\t\t// #pragma never_use_dxc\r\n\t\t\t\t//
+    #pragma target 2.5\r\n\t\t\t\t// #pragma multi_compile_instancing\r\n\t\t\t\t//
+    #pragma instancing_options procedural:vertInstancingSetup\r\n\r\n\t\t\t\t#pragma
+    shader_feature_local _ _CFXR_SINGLE_CHANNEL\r\n\t\t\t\t#pragma shader_feature_local
+    _ _CFXR_DISSOLVE\r\n\t\t\t\t#pragma shader_feature_local _ _CFXR_DISSOLVE_ALONG_UV_X\r\n\t\t\t\t#pragma
+    shader_feature_local _ _CFXR_UV_DISTORTION\r\n\t\t\t\t#pragma shader_feature_local
+    _ _CFXR_UV2_DISTORTION\r\n\t\t\t\t#pragma shader_feature_local _ _CFXR_UV_DISTORTION_ADD\r\n\t\t\t\t#pragma
+    shader_feature_local _ _CFXR_OVERLAYTEX_1X _CFXR_OVERLAYTEX_2X\r\n\t\t\t\t#pragma
+    shader_feature_local _ _CFXR_OVERLAYBLEND_A _CFXR_OVERLAYBLEND_RGB\r\n\t\t\t\t#pragma
+    shader_feature_local _ _FLIPBOOK_BLENDING\r\n\r\n\t\t\t\t#pragma shader_feature_local
+    _ _ALPHATEST_ON\r\n\t\t\t\t#pragma shader_feature_local _ _ALPHABLEND_ON _ALPHAPREMULTIPLY_ON
+    _ALPHAMODULATE_ON _CFXR_ADDITIVE\r\n\r\n\t\t\t\t#pragma multi_compile_shadowcaster\r\n\t\t\t\t#pragma
+    shader_feature_local _ _CFXR_DITHERED_SHADOWS_ON _CFXR_DITHERED_SHADOWS_CUSTOMTEXTURE\r\n\r\n\t\t\t#if
+    (_CFXR_DITHERED_SHADOWS_ON || _CFXR_DITHERED_SHADOWS_CUSTOMTEXTURE) && !defined(SHADER_API_GLES)\r\n\t\t\t\t#pragma
+    target 3.0\t\t//needed for VPOS\r\n\t\t\t#endif\r\n\r\n\t\t\t\t#include \"UnityStandardParticleInstancing.cginc\"\r\n\r\n\t\t\t\t#define
+    PASS_SHADOW_CASTER\r\n\t\t\t\t#define CFXR_UBERSHADER\r\n\t\t\t\t#include \"CFXR_PASSES.cginc\"\r\n\r\n\t\t\t\tENDCG\r\n\t\t\t}\r\n\t\t}\r\n\t}\r\n\t\r\n\tCustomEditor
+    \"CartoonFX.MaterialInspector\"\r\n}\r\n\r\n"
+  shaderName: Cartoon FX/Remaster/Particle Ubershader
+  shaderErrors: []
+  variantCount: 283253760
+  variantCountUsed: 8
