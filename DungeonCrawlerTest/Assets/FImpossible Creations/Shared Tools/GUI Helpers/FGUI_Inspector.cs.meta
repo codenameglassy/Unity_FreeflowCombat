@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: a8ec8a411bbdc9b448c43610751e0379
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 209616
+  packageName: Ragdoll Animator
+  packageVersion: 1.2.4
+  assetPath: Assets/FImpossible Creations/Shared Tools/GUI Helpers/FGUI_Inspector.cs
+  uploadId: 614850

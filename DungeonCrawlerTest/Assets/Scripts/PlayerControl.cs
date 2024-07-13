@@ -9,7 +9,7 @@ public class PlayerControl : MonoBehaviour
     [Header("Components")]
     [SerializeField] private Animator anim;
     [SerializeField] private ThirdPersonController thirdPersonController;
-  
+   // [SerializeField] private GameControl gameControl;
  
     [Space]
     [Header("Combat")]
@@ -38,6 +38,19 @@ public class PlayerControl : MonoBehaviour
     void Update()
     {
         HandleInput();
+    }
+
+    private void FixedUpdate()
+    {
+        if(target == null)
+        {
+            return;
+        }
+
+        if((Vector3.Distance(transform.position, target.position) >= 10))
+        {
+            ChangeTarget(null);
+        }
     }
 
     void HandleInput()
@@ -75,6 +88,7 @@ public class PlayerControl : MonoBehaviour
         }
 
         thirdPersonController.canMove = false;
+        GameControl.instance.canChangeTarget = false;
         RandomAttackAnim(attackState);
        
     }
@@ -122,6 +136,7 @@ public class PlayerControl : MonoBehaviour
                 else
                 {
                     thirdPersonController.canMove = true;
+                    GameControl.instance.canChangeTarget = true;
                 }
 
                 break;
@@ -136,6 +151,7 @@ public class PlayerControl : MonoBehaviour
                 else
                 {
                     thirdPersonController.canMove = true;
+                    GameControl.instance.canChangeTarget = true;
                 }
                    
 
@@ -152,6 +168,7 @@ public class PlayerControl : MonoBehaviour
                 else
                 {
                     thirdPersonController.canMove = true;
+                    GameControl.instance.canChangeTarget = true;
                 }
                
 
@@ -182,6 +199,7 @@ public class PlayerControl : MonoBehaviour
                 }
                 else
                 {
+                    GameControl.instance.canChangeTarget = true;
                     thirdPersonController.canMove = true;
                 }
 
@@ -200,6 +218,7 @@ public class PlayerControl : MonoBehaviour
                 else
                 {
                     thirdPersonController.canMove = true;
+                    GameControl.instance.canChangeTarget = true;
                 }
 
 
@@ -216,6 +235,7 @@ public class PlayerControl : MonoBehaviour
                 else
                 {
                     thirdPersonController.canMove = true;
+                    GameControl.instance.canChangeTarget = true;
                 }
            
 
@@ -231,6 +251,7 @@ public class PlayerControl : MonoBehaviour
         anim.SetBool("heavyAttack1", false);
         anim.SetBool("heavyAttack2", false);
         thirdPersonController.canMove = true;
+        GameControl.instance.canChangeTarget = true;
         isAttacking = false;
     }
 
@@ -256,12 +277,29 @@ public class PlayerControl : MonoBehaviour
             }
         }
     }
+
+    private EnemyBase oldTarget;
+    private EnemyBase currentTarget;
+    public void ChangeTarget(Transform target_)
+    {
+        
+
+        if(target != null)
+        {
+            //oldTarget = target_.GetComponent<EnemyBase>(); //clear old target
+            oldTarget.ActiveTarget(false);
+        }
+       
+        target = target_;
+        oldTarget = target_.GetComponent<EnemyBase>(); //set current target
+        currentTarget = target_.GetComponent<EnemyBase>();
+        currentTarget.ActiveTarget(true);
+
+    }
+
     public void CheckTargetInRange()
     {
-        if (target == null && GameControl.instance.allTargetsInRange.Count > 0)
-        {
-            ChangeTargetInRange();
-        }
+       
     }
     #endregion
 

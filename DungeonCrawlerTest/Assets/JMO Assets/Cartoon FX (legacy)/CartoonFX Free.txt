@@ -1,0 +1,55 @@
+﻿Cartoon FX Free, version 1.01
+2019/03/20
+© 2019 - Jean Moreno
+=============================
+
+QUICK START
+-----------
+This is a selection of effects from Cartoon FX Packs 1,2,3 and 4.
+You can find the effects in the following folders:
+/JMO Assets/Cartoon FX/CFX* Prefabs/
+(* being the number of the pack the effect is from)
+
+
+FULL PACKS
+----------
+The full commercial packs on the Unity Asset Store offer:
+- way more effect prefabs
+- multiple variations of the effects
+- mobile-optimized versions of the effects
+- CFX Spawn System (beginner-friendly way to recycle spawned effect, aka "pooling")
+
+Open the Welcome Screen in the menu to quickly see them on the Asset Store:
+Window > JMO Assets > Welcome Screens > Cartoon FX Free
+
+
+
+PLEASE LEAVE A REVIEW OR RATE THE PACKAGE IF YOU FIND IT USEFUL!
+Enjoy! :)
+
+
+
+CONTACT
+-------
+Questions, suggestions, help needed?
+Contact me at:
+
+jean.moreno.public+unity@gmail.com
+
+
+RELEASE NOTES
+-------------
+1.03
+- Welcome Screen fix for Unity 2019.1
+- Removed 'JMOAssets.dll', became obsolete with the Asset Store update notification system
+
+1.02
+- fixed small API deprecation as of Unity 2017.4+
+
+1.01
+- updated shaders so that they work on PS4
+- updated shaders for GPU Instancing and Stereo Rendering
+- updated effects with "Horizontal Billboard" particle render mode to "Billboard" with local alignment so that they can be freely rotated
+
+1.0
+- initial release

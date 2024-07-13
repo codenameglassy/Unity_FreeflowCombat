@@ -1,0 +1,16 @@
+
+This directories are splitted into different categories for Assembly Definitions.
+(All directories mentioned below will appear when importing fimpossible assembly definitions)
+You can use Assembly Definitions to speed up compilation time.
+Import .unitypackage "FImpossible Assembly Definitions to have them prepared automatically.
+
+
+/Editor - Scripts responsible for drawing inspector windows and other gui for plugins
+and also additional editor menus
+
+/Plugins - Animating - All plugins related to animation or procedural animation grouped in one directory
+/Plugins - Audio - All plugins related to Audio grouped in one directory
+/Plugins - Level Design - All plugins related to level design grouped in one directory
+/Plugins - Other - All plugins related to other things like optimization grouped in one directory
+/Plugins - Shared - Demos plugins or my other free packages used in shared way for rest of the packages
+/Shared Tools - Shared tools for inspector windows or shared math logics, this directory is used by all other plugins
