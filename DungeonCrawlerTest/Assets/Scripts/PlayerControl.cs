@@ -9,7 +9,6 @@ public class PlayerControl : MonoBehaviour
     [Header("Components")]
     [SerializeField] private Animator anim;
     [SerializeField] private ThirdPersonController thirdPersonController;
-   // [SerializeField] private GameControl gameControl;
  
     [Space]
     [Header("Combat")]
@@ -23,6 +22,7 @@ public class PlayerControl : MonoBehaviour
     [SerializeField] private float reachTime = 0.3f;
     [SerializeField] private LayerMask enemyLayer;
     bool isAttacking = false;
+    private float timeSinceLastMouseClick;
 
     [Space]
     [Header("Debug")]
@@ -31,12 +31,26 @@ public class PlayerControl : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-       
+        timeSinceLastMouseClick = 0f;
+
+        GameControl.instance.cameraState = GameControl.CameraState.Navigate;
+        GameControl.instance.SwitchCamera();
     }
 
     // Update is called once per frame
     void Update()
     {
+        // Update the time since the last mouse click
+        timeSinceLastMouseClick += Time.deltaTime;
+
+        // Check if idle time threshold is exceeded
+        if (timeSinceLastMouseClick >= 2f)
+        {
+            GameControl.instance.cameraState = GameControl.CameraState.Navigate;
+            GameControl.instance.SwitchCamera();
+            timeSinceLastMouseClick = 0f; // Reset the idle timer
+        }
+
         HandleInput();
     }
 
@@ -87,6 +101,7 @@ public class PlayerControl : MonoBehaviour
             return;
         }
 
+       
         thirdPersonController.canMove = false;
         TargetDetectionControl.instance.canChangeTarget = false;
         RandomAttackAnim(attackState);
@@ -114,6 +129,13 @@ public class PlayerControl : MonoBehaviour
        
     }
 
+    void SwitchToCombatVcam()
+    {
+        timeSinceLastMouseClick = 0f;
+        GameControl.instance.cameraState = GameControl.CameraState.Combat;
+        GameControl.instance.SwitchCamera();
+
+    }
     void QuickAttack()
     {
         int attackIndex = Random.Range(1, 4);
@@ -128,6 +150,7 @@ public class PlayerControl : MonoBehaviour
 
                 if (target != null)
                 {
+                    SwitchToCombatVcam();
                     MoveTowardsTarget(target.position, quickAttackDeltaDistance, "punch");
                     isAttacking = true;
                 }
@@ -143,6 +166,7 @@ public class PlayerControl : MonoBehaviour
 
                 if (target != null)
                 {
+                    SwitchToCombatVcam();
                     MoveTowardsTarget(target.position, quickAttackDeltaDistance, "kick");
                     isAttacking = true;
                 }
@@ -160,7 +184,7 @@ public class PlayerControl : MonoBehaviour
                 if (target != null)
                 {
                     MoveTowardsTarget(target.position, quickAttackDeltaDistance, "mmakick");
-
+                    SwitchToCombatVcam();
                     isAttacking = true;
                 }
                 else
@@ -189,6 +213,7 @@ public class PlayerControl : MonoBehaviour
 
                 if (target != null)
                 {
+                    SwitchToCombatVcam();
                     //MoveTowardsTarget(target.position, kickDeltaDistance, "heavyAttack1");
                     FaceThis(target.position);
                     anim.SetBool("heavyAttack1", true);
@@ -208,6 +233,7 @@ public class PlayerControl : MonoBehaviour
 
                 if (target != null)
                 {
+                    SwitchToCombatVcam();
                     //MoveTowardsTarget(target.position, kickDeltaDistance, "heavyAttack2");
                     FaceThis(target.position);
                     anim.SetBool("heavyAttack2", true);
