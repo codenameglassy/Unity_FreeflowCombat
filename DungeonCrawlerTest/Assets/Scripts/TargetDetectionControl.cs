@@ -3,28 +3,30 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-public class GameControl : MonoBehaviour
+public class TargetDetectionControl : MonoBehaviour
 {
 
-    public static GameControl instance;
+    public static TargetDetectionControl instance;
 
     [Header("Components")]
     public PlayerControl playerControl;
 
     [Header("Scene")]
     public List<Transform> allTargetsInScene = new List<Transform>();
-    public PlayerControl playerInScene;
-
+    
     [Space]
-    [Header("TargetDetection")]
+    [Header("Target Detection")]
     public LayerMask whatIsEnemy;
-    public bool canChangeTarget;
-    [Range(0f, 10f)] public float detectionRange;
+    public bool canChangeTarget = true;
+
+    [Tooltip("Detection Range: \n Player range for detecting potential targets.")]
+    [Range(0f, 15f)] public float detectionRange = 10f;
+
     [Tooltip("Dot Product Threshold \nHigher Values: More strict alignment required \nLower Values: Allows for broader targeting")]
-    [Range(0f, 1f)] public float dotProductThreshold = 0.1f;
+    [Range(0f, 1f)] public float dotProductThreshold = 0.15f;
 
     [Space]
-    [Header("debug")]
+    [Header("Debug")]
     public bool debug;
     public Transform checkPos;
 
@@ -36,8 +38,7 @@ public class GameControl : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        playerInScene = FindObjectOfType<PlayerControl>();
-
+       
         PopulateTargetInScene();
         StartCoroutine(RunEvery200ms());
     }

@@ -2638,7 +2638,7 @@ GameObject:
   - component: {fileID: 1696305267}
   - component: {fileID: 1696305268}
   m_Layer: 0
-  m_Name: GameControl
+  m_Name: TargetDetectionControl
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2674,13 +2674,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerControl: {fileID: 8910894964888130066}
   allTargetsInScene: []
-  playerInScene: {fileID: 8910894964888130066}
   whatIsEnemy:
     serializedVersion: 2
     m_Bits: 128
   canChangeTarget: 1
   detectionRange: 10
-  dotProductThreshold: 0.1
+  dotProductThreshold: 0.15
   debug: 1
   checkPos: {fileID: 1686749009}
 --- !u!1 &1902202074

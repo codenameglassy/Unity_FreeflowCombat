@@ -14,12 +14,7 @@ public class EnemyBase : MonoBehaviour
         ActiveTarget(false);
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
+  
     public void SpawnHitVfx(Vector3 Pos_)
     {
         Instantiate(hitVfx, Pos_, Quaternion.identity);

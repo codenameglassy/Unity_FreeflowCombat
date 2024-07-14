@@ -47,9 +47,9 @@ public class PlayerControl : MonoBehaviour
             return;
         }
 
-        if((Vector3.Distance(transform.position, target.position) >= 10))
+        if((Vector3.Distance(transform.position, target.position) >= TargetDetectionControl.instance.detectionRange))
         {
-            ChangeTarget(null);
+            NoTarget();
         }
     }
 
@@ -88,12 +88,10 @@ public class PlayerControl : MonoBehaviour
         }
 
         thirdPersonController.canMove = false;
-        GameControl.instance.canChangeTarget = false;
+        TargetDetectionControl.instance.canChangeTarget = false;
         RandomAttackAnim(attackState);
        
     }
-
-   
 
     private void RandomAttackAnim(int attackState)
     {
@@ -136,7 +134,7 @@ public class PlayerControl : MonoBehaviour
                 else
                 {
                     thirdPersonController.canMove = true;
-                    GameControl.instance.canChangeTarget = true;
+                    TargetDetectionControl.instance.canChangeTarget = true;
                 }
 
                 break;
@@ -151,7 +149,7 @@ public class PlayerControl : MonoBehaviour
                 else
                 {
                     thirdPersonController.canMove = true;
-                    GameControl.instance.canChangeTarget = true;
+                    TargetDetectionControl.instance.canChangeTarget = true;
                 }
                    
 
@@ -168,7 +166,7 @@ public class PlayerControl : MonoBehaviour
                 else
                 {
                     thirdPersonController.canMove = true;
-                    GameControl.instance.canChangeTarget = true;
+                    TargetDetectionControl.instance.canChangeTarget = true;
                 }
                
 
@@ -199,7 +197,7 @@ public class PlayerControl : MonoBehaviour
                 }
                 else
                 {
-                    GameControl.instance.canChangeTarget = true;
+                    TargetDetectionControl.instance.canChangeTarget = true;
                     thirdPersonController.canMove = true;
                 }
 
@@ -218,7 +216,7 @@ public class PlayerControl : MonoBehaviour
                 else
                 {
                     thirdPersonController.canMove = true;
-                    GameControl.instance.canChangeTarget = true;
+                    TargetDetectionControl.instance.canChangeTarget = true;
                 }
 
 
@@ -235,7 +233,7 @@ public class PlayerControl : MonoBehaviour
                 else
                 {
                     thirdPersonController.canMove = true;
-                    GameControl.instance.canChangeTarget = true;
+                    TargetDetectionControl.instance.canChangeTarget = true;
                 }
            
 
@@ -243,7 +241,7 @@ public class PlayerControl : MonoBehaviour
         }
     }
 
-    public void ResetAttack()
+    public void ResetAttack() // Animation Event ---- for Reset Attack
     {
         anim.SetBool("punch", false);
         anim.SetBool("kick", false);
@@ -251,11 +249,11 @@ public class PlayerControl : MonoBehaviour
         anim.SetBool("heavyAttack1", false);
         anim.SetBool("heavyAttack2", false);
         thirdPersonController.canMove = true;
-        GameControl.instance.canChangeTarget = true;
+        TargetDetectionControl.instance.canChangeTarget = true;
         isAttacking = false;
     }
 
-    public void PerformAttack()
+    public void PerformAttack() // Animation Event ---- for Attacking Targets
     {
         // Assuming we have a melee attack with a short range
        
@@ -283,7 +281,6 @@ public class PlayerControl : MonoBehaviour
     public void ChangeTarget(Transform target_)
     {
         
-
         if(target != null)
         {
             //oldTarget = target_.GetComponent<EnemyBase>(); //clear old target
@@ -296,6 +293,14 @@ public class PlayerControl : MonoBehaviour
         currentTarget = target_.GetComponent<EnemyBase>();
         currentTarget.ActiveTarget(true);
 
+    }
+
+    private void NoTarget() // When player gets out of range of current Target
+    {
+        currentTarget.ActiveTarget(false);
+        currentTarget = null;
+        oldTarget = null;
+        target = null;
     }
 
     #endregion
@@ -313,7 +318,7 @@ public class PlayerControl : MonoBehaviour
 
     }
 
-    public void GetClose() 
+    public void GetClose() // Animation Event ---- for Moving Close to Target
     {
         Vector3 getCloseTarget;
         if (target == null)
