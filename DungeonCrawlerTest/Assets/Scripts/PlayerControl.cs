@@ -15,8 +15,8 @@ public class PlayerControl : MonoBehaviour
     [Header("Combat")]
     public Transform target;
     [SerializeField] private Transform attackPos;
-    [SerializeField] private float punchDeltaDistance;
-    [SerializeField] private float kickDeltaDistance;
+    [Tooltip("Offset Stoping Distance")][SerializeField] private float quickAttackDeltaDistance;
+    [Tooltip("Offset Stoping Distance")][SerializeField] private float heavyAttackDeltaDistance;
     [SerializeField] private float knockbackForce = 10f; 
     [SerializeField] private float airknockbackForce = 10f; 
     [SerializeField] private float attackRange = 1f;
@@ -128,7 +128,7 @@ public class PlayerControl : MonoBehaviour
 
                 if (target != null)
                 {
-                    MoveTowardsTarget(target.position, punchDeltaDistance, "punch");
+                    MoveTowardsTarget(target.position, quickAttackDeltaDistance, "punch");
                     isAttacking = true;
                 }
                 else
@@ -143,7 +143,7 @@ public class PlayerControl : MonoBehaviour
 
                 if (target != null)
                 {
-                    MoveTowardsTarget(target.position, kickDeltaDistance, "kick");
+                    MoveTowardsTarget(target.position, quickAttackDeltaDistance, "kick");
                     isAttacking = true;
                 }
                 else
@@ -159,7 +159,7 @@ public class PlayerControl : MonoBehaviour
 
                 if (target != null)
                 {
-                    MoveTowardsTarget(target.position, kickDeltaDistance, "mmakick");
+                    MoveTowardsTarget(target.position, quickAttackDeltaDistance, "mmakick");
 
                     isAttacking = true;
                 }
@@ -218,24 +218,6 @@ public class PlayerControl : MonoBehaviour
                     thirdPersonController.canMove = true;
                     TargetDetectionControl.instance.canChangeTarget = true;
                 }
-
-
-                break;
-
-            case 3: //heavyAttack3
-
-                if (target != null)
-                {
-                    MoveTowardsTarget(target.position, kickDeltaDistance, "heavyAttack3");
-
-                    isAttacking = true;
-                }
-                else
-                {
-                    thirdPersonController.canMove = true;
-                    TargetDetectionControl.instance.canChangeTarget = true;
-                }
-           
 
                 break;
         }

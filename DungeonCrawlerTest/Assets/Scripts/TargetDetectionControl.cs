@@ -38,9 +38,8 @@ public class TargetDetectionControl : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-       
         PopulateTargetInScene();
-        StartCoroutine(RunEvery200ms());
+        StartCoroutine(RunEveryXms());
     }
 
     private void PopulateTargetInScene()
@@ -62,7 +61,7 @@ public class TargetDetectionControl : MonoBehaviour
         }
     }
 
-    private IEnumerator RunEvery200ms()
+    private IEnumerator RunEveryXms()
     {
         while (true)
         {
