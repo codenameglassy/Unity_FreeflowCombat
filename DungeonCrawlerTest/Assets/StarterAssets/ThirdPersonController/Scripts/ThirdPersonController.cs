@@ -1,5 +1,4 @@
 ﻿ using UnityEngine;
-using FIMSpace;
 #if ENABLE_INPUT_SYSTEM 
 using UnityEngine.InputSystem;
 #endif
@@ -127,7 +126,7 @@ namespace StarterAssets
         public bool canMove;
         [Range(0f, 1f)]
         public float directMoveBlend = 0f;
-        public LeaningAnimator leanAnimator;
+
         private void Awake()
         {
             // get a reference to our main camera
@@ -270,7 +269,6 @@ namespace StarterAssets
                     transform.rotation = Quaternion.Euler(0.0f, rotation, 0.0f);
             }
 
-
             Vector3 targetDirection = Quaternion.Euler(0.0f, _targetRotation, 0.0f) * Vector3.forward;
             Vector3 directMovement = transform.forward;
             targetDirection = Vector3.Lerp(targetDirection, directMovement, directMoveBlend);
@@ -281,7 +279,6 @@ namespace StarterAssets
                              new Vector3(0.0f, _verticalVelocity, 0.0f) * Time.deltaTime);
             }
            
-
             // update animator if using character
             if (_hasAnimator)
             {
@@ -289,12 +286,11 @@ namespace StarterAssets
                 _animator.SetFloat(_animIDMotionSpeed, inputMagnitude);
             }
 
-            leanAnimator.User_DeliverIsAccelerating(_input.move != Vector2.zero);
-            leanAnimator.User_DeliverIsGrounded(Grounded);
-            leanAnimator.User_DeliverAccelerationSpeed(_speed);
+            //leanAnimator.User_DeliverIsAccelerating(_input.move != Vector2.zero);
+            //leanAnimator.User_DeliverIsGrounded(Grounded);
+            //leanAnimator.User_DeliverAccelerationSpeed(_speed);
         }
 
-      
         private void JumpAndGravity()
         {
             if (Grounded)

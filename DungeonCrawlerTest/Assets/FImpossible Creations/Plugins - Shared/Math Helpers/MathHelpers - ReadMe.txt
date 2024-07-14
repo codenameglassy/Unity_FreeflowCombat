@@ -1,1 +1,0 @@
-MathHelpers is directory with classes providing helpful static methods.

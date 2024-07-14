@@ -31,7 +31,7 @@ public class PlayerControl : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        ChangeTargetInRange();
+       
     }
 
     // Update is called once per frame
@@ -65,20 +65,20 @@ public class PlayerControl : MonoBehaviour
             Attack(1);
         }
 
-        if (Input.GetKeyDown(KeyCode.Q))
+        if (Input.GetKeyDown(KeyCode.J))
         {
-            ChangeTargetInRange();
+            Attack(0);
         }
+
+        if (Input.GetKeyDown(KeyCode.K))
+        {
+            Attack(1);
+        }
+
     }
 
     #region Attack, PerformAttack, Reset Attack, Change Target
-    public void ChangeTargetInRange() 
-    {
-        //GameControl.instance.RepopulateTarget();
-        target = GameControl.instance.GetNextTargetInRange();
-    }
-
-
+  
 
     public void Attack(int attackState)
     {
@@ -291,16 +291,13 @@ public class PlayerControl : MonoBehaviour
         }
        
         target = target_;
+
         oldTarget = target_.GetComponent<EnemyBase>(); //set current target
         currentTarget = target_.GetComponent<EnemyBase>();
         currentTarget.ActiveTarget(true);
 
     }
 
-    public void CheckTargetInRange()
-    {
-       
-    }
     #endregion
 
 
@@ -309,28 +306,32 @@ public class PlayerControl : MonoBehaviour
     {
 
         PerformAttackAnimation(animationName_);
-        //transform.DOLookAt(target, .2f);
         FaceThis(target_);
         Vector3 finalPos = TargetOffset(target_, deltaDistance);
         finalPos.y = 0;
-        //anim.SetBool("readyAttack", true);
         transform.DOMove(finalPos, reachTime);
-        //transform.DOMove(finalPos, reachTime).OnComplete(() => PerformAttackAnimation(animationName_));
 
     }
 
     public void GetClose() 
     {
-        Vector3 target_ = target.position;
-        FaceThis(target_);
-        Vector3 finalPos = TargetOffset(target_, 1.4f);
+        Vector3 getCloseTarget;
+        if (target == null)
+        {
+            getCloseTarget = oldTarget.transform.position;
+        }
+        else
+        {
+            getCloseTarget = target.position;
+        }
+        FaceThis(getCloseTarget);
+        Vector3 finalPos = TargetOffset(getCloseTarget, 1.4f);
         finalPos.y = 0;
         transform.DOMove(finalPos, 0.2f);
     }
 
     void PerformAttackAnimation(string animationName_)
     {
-        //anim.SetBool("readyAttack", false);
         anim.SetBool(animationName_, true);
     }
 
