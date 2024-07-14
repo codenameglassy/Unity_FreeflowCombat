@@ -5,6 +5,7 @@ using UnityEngine;
 public class Blocks : MonoBehaviour
 {
     public List<GameObject> traps = new List<GameObject>();
+    public List<GameObject> pillars = new List<GameObject>();
 
     // Start is called before the first frame update
     void Start()
@@ -17,6 +18,13 @@ public class Blocks : MonoBehaviour
         int index = Random.Range(0, traps.Count);
 
         traps[index].SetActive(true);
+    }
+
+    public void SetPillar()
+    {
+        int index = Random.Range(0, traps.Count);
+
+        pillars[index].SetActive(true);
     }
 
   

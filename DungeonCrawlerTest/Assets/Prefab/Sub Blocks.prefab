@@ -8,10 +8,15 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2756677522968173405, guid: 192e5338724bb8348995188ffe037759,
+        type: 3}
+      propertyPath: m_UnmodifiedMeshVersion
+      value: 1821
+      objectReference: {fileID: 0}
     - target: {fileID: 3257845494807842352, guid: 192e5338724bb8348995188ffe037759,
         type: 3}
       propertyPath: m_Name
-      value: Blocks
+      value: Sub Blocks
       objectReference: {fileID: 0}
     - target: {fileID: 5588556407345986863, guid: 192e5338724bb8348995188ffe037759,
         type: 3}
@@ -25,8 +30,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7464743421781220122, guid: 192e5338724bb8348995188ffe037759,
         type: 3}
-      propertyPath: m_Mesh
-      value: 
+      propertyPath: m_VersionIndex
+      value: 1821
+      objectReference: {fileID: 0}
+    - target: {fileID: 7464743421781220122, guid: 192e5338724bb8348995188ffe037759,
+        type: 3}
+      propertyPath: m_SelectedEdges.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7464743421781220122, guid: 192e5338724bb8348995188ffe037759,
+        type: 3}
+      propertyPath: m_SelectedFaces.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7464743421781220122, guid: 192e5338724bb8348995188ffe037759,
+        type: 3}
+      propertyPath: m_SelectedVertices.Array.size
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9023012675704795470, guid: 192e5338724bb8348995188ffe037759,
         type: 3}

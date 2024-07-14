@@ -23,6 +23,7 @@ public class ProceduralArenaGeneration : MonoBehaviour
 
     private void RandomArena()
     {
+        //set block
         for (int i = 0; i < blocks.Count; i++)
         {
             blocks[i].SetActive(true);
@@ -44,15 +45,32 @@ public class ProceduralArenaGeneration : MonoBehaviour
             }
         }
 
+        //set trap
         int index4 = Random.Range(0, survivedBlocks.Count);
+        int index4_ = Random.Range(0, survivedBlocks.Count);
+        //int index4__ = Random.Range(0, survivedBlocks.Count);
 
         for (int i = 0; i < blocks.Count; i++)
         {
-            if(i == index4)
+            if(i == index4 || i == index4_)
             {
                 survivedBlocks[i].SetTrap();
+                survivedBlocks.Remove(survivedBlocks[i]);
             }
         }
 
+
+        //set pillar
+        int index5, index6;
+        index5 = Random.Range(0, survivedBlocks.Count);
+        index6 = Random.Range(0, survivedBlocks.Count);
+
+        for (int i = 0; i < blocks.Count; i++)
+        {
+            if (i == index5 || i == index6)
+            {
+                survivedBlocks[i].SetPillar();
+            }
+        }
     }
 }

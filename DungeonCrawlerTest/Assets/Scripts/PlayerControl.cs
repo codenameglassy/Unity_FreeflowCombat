@@ -33,8 +33,6 @@ public class PlayerControl : MonoBehaviour
     {
         timeSinceLastMouseClick = 0f;
 
-        GameControl.instance.cameraState = GameControl.CameraState.Navigate;
-        GameControl.instance.SwitchCamera();
     }
 
     // Update is called once per frame

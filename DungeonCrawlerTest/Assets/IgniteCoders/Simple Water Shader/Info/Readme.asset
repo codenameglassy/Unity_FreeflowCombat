@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fcf7219bab7fe46a1ad266029b2fee19, type: 3}
+  m_Name: Readme
+  m_EditorClassIdentifier: 
+  icon: {fileID: 2800000, guid: 7801804018a7dcf42abb827444e18660, type: 3}
+  title: Simple Water Shader
+  sections:
+  - heading: Simple Water Shader
+    text: 'This asset simulates a simple water using the Universal Render Pipeline (URP) and Shader Graph.'
+    linkText: 
+    url: 
+  - heading:
+    text: 'You can change colors, transparency, displacement... etc.'
+    linkText: 
+    url: 
+  - heading:
+    text: 'There's a ReflectionCamera prefab with a script for mirroring the main camera, bus doesn't looks good in all situations.'
+    linkText: 
+    url: 
+  - heading:
+    text: 'The Shader is well organized for better manipulation and configuration.'
+    linkText: 
+    url: 
+  loadedLayout: 1
