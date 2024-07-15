@@ -276,8 +276,9 @@ public class PlayerControl : MonoBehaviour
                 knockbackDirection.y = airknockbackForce; // Keep the knockback horizontal
 
                 // Apply force to the enemy
-                enemyRb.AddForce(knockbackDirection.normalized * knockbackForce, ForceMode.Impulse);
+                enemyBase.TakeDamage();
                 enemyBase.SpawnHitVfx(enemyBase.transform.position);
+                enemyRb.AddForce(knockbackDirection.normalized * knockbackForce, ForceMode.Impulse);
             }
         }
     }
@@ -315,7 +316,7 @@ public class PlayerControl : MonoBehaviour
     #region MoveTowards, Target Offset and FaceThis
     public void MoveTowardsTarget(Vector3 target_, float deltaDistance, string animationName_)
     {
-
+        target.GetComponent<EnemyBase>().ReadyToTakeDamage();
         PerformAttackAnimation(animationName_);
         FaceThis(target_);
         Vector3 finalPos = TargetOffset(target_, deltaDistance);
@@ -326,6 +327,7 @@ public class PlayerControl : MonoBehaviour
 
     public void GetClose() // Animation Event ---- for Moving Close to Target
     {
+        target.GetComponent<EnemyBase>().ReadyToTakeDamage();
         Vector3 getCloseTarget;
         if (target == null)
         {
@@ -336,7 +338,7 @@ public class PlayerControl : MonoBehaviour
             getCloseTarget = target.position;
         }
         FaceThis(getCloseTarget);
-        Vector3 finalPos = TargetOffset(getCloseTarget, 1.4f);
+        Vector3 finalPos = TargetOffset(getCloseTarget, heavyAttackDeltaDistance);
         finalPos.y = 0;
         transform.DOMove(finalPos, 0.2f);
     }
