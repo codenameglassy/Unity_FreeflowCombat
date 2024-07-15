@@ -55,7 +55,7 @@ public class InputFieldHandler : MonoBehaviour
         PlayerPrefs.Save();
         Debug.Log("Input value saved: " + inputValue);
         FindObjectOfType<ScreenLoader>().LoadScene("SampleScene");
-        //ScoreManager.instance.SumbitScore();
+
     }
 
     // Method to load the input value from PlayerPrefs

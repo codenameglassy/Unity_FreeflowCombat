@@ -136,18 +136,20 @@ public class GameControl : MonoBehaviour
         StartCoroutine(Enum_Gameover());
     }
 
+    
     IEnumerator Enum_Gameover()
     {
         Debug.Log("SubmitingScore");
-        string currentUsername = PlayerPrefs.GetString("InputFieldValue");
-        Leaderboard.instance.SetLeaderboardEntry(currentUsername, ScoreManager.instance.GetCurrentScore());
+        //string currentUsername = PlayerPrefs.GetString("InputFieldValue");
+        Leaderboard.instance.SubmitScore(ScoreManager.instance.GetCurrentScore());
+        Leaderboard.instance.FetechPersonalScore();
         for (int i = 0; i < TargetDetectionControl.instance.allTargetsInScene.Count; i++)
         {
             TargetDetectionControl.instance.allTargetsInScene[i].GetComponent<EnemyBase>().Gameover();
         }
 
         yield return new WaitForSeconds(1f);
-        //Leaderboard.instance.GetLeaderBoard();
+       
         fadeCanvas.DOFade(1, 2f);
 
         //reset cursor
