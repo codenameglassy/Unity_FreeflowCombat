@@ -6,7 +6,7 @@ public class Blocks : MonoBehaviour
 {
     public List<GameObject> traps = new List<GameObject>();
     public List<GameObject> pillars = new List<GameObject>();
-
+    public Transform spawnPos;
     // Start is called before the first frame update
     void Start()
     {

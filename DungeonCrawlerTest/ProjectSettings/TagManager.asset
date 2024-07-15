@@ -6,6 +6,7 @@ TagManager:
   tags:
   - CinemachineTarget
   - FxTemporaire
+  - Enemy
   layers:
   - Default
   - TransparentFX
@@ -45,4 +46,7 @@ TagManager:
     locked: 0
   - name: Vfx
     uniqueID: 4186215603
+    locked: 0
+  - name: UI
+    uniqueID: 2866697757
     locked: 0

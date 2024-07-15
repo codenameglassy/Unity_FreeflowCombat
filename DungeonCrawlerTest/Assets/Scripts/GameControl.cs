@@ -1,8 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 using StarterAssets;
 using Cinemachine;
+using UnityEngine.AI;
+using Unity.AI.Navigation;
 
 public class GameControl : MonoBehaviour
 {
@@ -15,13 +18,6 @@ public class GameControl : MonoBehaviour
     public CinemachineVirtualCamera startVcam;
     public Transform playerCameraRoot;
 
-
-    [Header("Game-Play")]
-    public bool isGameStarted;
-    public bool isGameOver;
-    public PlayerControl playerControl;
-    public ThirdPersonController thirdPersonController;
-
     public enum CameraState
     {
         none,
@@ -30,6 +26,20 @@ public class GameControl : MonoBehaviour
     }
     public CameraState cameraState;
 
+   
+    public bool isGameStarted;
+    public bool isGameOver;
+    public PlayerControl playerControl;
+    public ThirdPersonController thirdPersonController;
+
+    [Header("Canvas")]
+    public CanvasGroup bloodOverlay;
+    public CanvasGroup fadeCanvas;
+
+
+
+    public GameObject enemy;
+    public List<Transform> spawnPosList = new List<Transform>();
     private void Awake()
     {
         instance = this;
@@ -38,14 +48,46 @@ public class GameControl : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        fadeCanvas.alpha = 1.0f;
+        fadeCanvas.DOFade(0, 1f);
         GameControl.instance.cameraState = GameControl.CameraState.none;
         GameControl.instance.SwitchCamera();
         StartCoroutine(Enum_StartGame());
+
+    }
+
+    public void SpawnEnemy()
+    {
+        StartCoroutine(Enum_SpawnWave());
+    }
+
+    IEnumerator Enum_SpawnWave()
+    {
+        yield return new WaitForSeconds(1f);
+
+
+          int randomindex = Random.Range(1, 3);
+          
+
+          for (int i = 0; i < randomindex; i++)
+          {
+              Instantiate(enemy, spawnPosList[i].position, Quaternion.identity);
+          }
+  
+        yield return new WaitForSeconds(15f);
+
+        StartCoroutine(Enum_SpawnWave());
     }
 
     private void FixedUpdate()
     {
         SwitchCamera();
+    }
+
+    public void BloodOverlay()
+    {
+        bloodOverlay.DOFade(1, 0.2f).OnComplete(() => 
+        bloodOverlay.DOFade(0, 0.5f));
     }
 
     public void SwitchCamera()
@@ -74,6 +116,7 @@ public class GameControl : MonoBehaviour
 
     IEnumerator Enum_StartGame()
     {
+       
         yield return new WaitForSeconds(3f);
         isGameStarted = true;
         navigateVCam.Follow = playerCameraRoot;
@@ -83,8 +126,25 @@ public class GameControl : MonoBehaviour
         thirdPersonController.enabled = true;
         playerControl.enabled = true;
 
+      
+
         //GameControl.instance.cameraState = GameControl.CameraState.Navigate;
         //GameControl.instance.SwitchCamera();
     }
     
+    public void GameOver()
+    {
+        StartCoroutine(Enum_Gameover());
+    }
+
+    IEnumerator Enum_Gameover()
+    {
+        for (int i = 0; i < TargetDetectionControl.instance.allTargetsInScene.Count; i++)
+        {
+            TargetDetectionControl.instance.allTargetsInScene[i].GetComponent<EnemyBase>().Gameover();
+        }
+        yield return new WaitForSeconds(1f);
+        fadeCanvas.DOFade(1, 2f);
+
+    }
 }

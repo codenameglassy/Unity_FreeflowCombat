@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 using StarterAssets;
+using TMPro;
 public class PlayerControl : MonoBehaviour
 {
     [Space]
@@ -28,12 +29,18 @@ public class PlayerControl : MonoBehaviour
     [Header("Debug")]
     [SerializeField] private bool debug;
 
+    [Header("Health")]
+    public int maxHealth;
+    private int currentHealth;
+    public TextMeshProUGUI healthText;
     // Start is called before the first frame update
     void Start()
     {
         timeSinceLastMouseClick = 0f;
-
+        currentHealth = maxHealth;
+        healthText.text = currentHealth.ToString();
     }
+    
 
     // Update is called once per frame
     void Update()
@@ -52,6 +59,7 @@ public class PlayerControl : MonoBehaviour
         HandleInput();
     }
 
+    
     private void FixedUpdate()
     {
         if(target == null)
@@ -267,17 +275,21 @@ public class PlayerControl : MonoBehaviour
 
         foreach (Collider enemy in hitEnemies)
         {
-            Rigidbody enemyRb = enemy.GetComponent<Rigidbody>();
+           
             EnemyBase enemyBase = enemy.GetComponent<EnemyBase>();
+            Rigidbody enemyRb = enemy.GetComponent<Rigidbody>();
             if (enemyRb != null)
             {
                 // Calculate knockback direction
                 Vector3 knockbackDirection = enemy.transform.position - transform.position;
                 knockbackDirection.y = airknockbackForce; // Keep the knockback horizontal
 
+                // Get collision point
+                Vector3 collisionPoint = enemy.ClosestPoint(transform.position);
+
                 // Apply force to the enemy
-                enemyBase.TakeDamage();
-                enemyBase.SpawnHitVfx(enemyBase.transform.position);
+                enemyBase.TakeDamage(10);
+                enemyBase.SpawnHitVfx(collisionPoint);
                 enemyRb.AddForce(knockbackDirection.normalized * knockbackForce, ForceMode.Impulse);
             }
         }
@@ -302,9 +314,15 @@ public class PlayerControl : MonoBehaviour
 
     }
 
-    private void NoTarget() // When player gets out of range of current Target
+    public void NoTarget() // When player gets out of range of current Target
     {
         currentTarget.ActiveTarget(false);
+        currentTarget = null;
+        oldTarget = null;
+        target = null;
+    }
+    public void DestroyedTarget()
+    {
         currentTarget = null;
         oldTarget = null;
         target = null;
@@ -364,6 +382,31 @@ public class PlayerControl : MonoBehaviour
         transform.DOLocalRotateQuaternion(lookAtRotation, 0.2f);
     }
     #endregion
+
+    public void TakeDamage(int damageTaken)
+    {
+        Debug.Log("Damage Taken");
+        GameControl.instance.BloodOverlay();
+
+        currentHealth -= damageTaken;
+        healthText.text = currentHealth.ToString();
+        if (currentHealth <= 0)
+        {
+            Gameover();
+
+        }
+
+    }
+
+    public void Gameover()
+    {
+        currentHealth = 0;
+        healthText.text = currentHealth.ToString();
+        GameControl.instance.isGameOver = true;
+        GameControl.instance.GameOver();
+        gameObject.SetActive(false);
+    }
+    
 
     void OnDrawGizmosSelected()
     {

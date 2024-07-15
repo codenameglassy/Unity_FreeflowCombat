@@ -1,0 +1,82 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ba2a80b753f77d4d96ab2af3748cee8, type: 3}
+  m_Name: ConstantCurvy
+  m_EditorClassIdentifier: 
+  _scaledTime: 1
+  _shakeCanvases: 1
+  _shakeRigidbodies: 1
+  _unlimitedDuration: 1
+  _totalDuration: 1
+  _fadeInDuration: 1
+  _fadeOutDuration: 1
+  _magnitude: 0.5
+  _magnitudeNoise: 0.1
+  _magnitudeCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 1
+      inSlope: 0.014367644
+      outSlope: 0.014367644
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 0.5
+      value: 0.25
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 34
+    - serializedVersion: 2
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 34
+    - serializedVersion: 2
+      time: 1.5
+      value: 0.25
+      inSlope: 0.0036582947
+      outSlope: 0.0036582947
+      tangentMode: 34
+    - serializedVersion: 2
+      time: 2
+      value: 1.0036583
+      inSlope: -0.00000054336607
+      outSlope: -0.00000054336607
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  _roughness: 13
+  _roughnessNoise: 0.3
+  _roughnessCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 34
+    - serializedVersion: 2
+      time: 2
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 34
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  _positionalInfluence: {x: 1, y: 1, z: 0}
+  _rotationalInfluence: {x: 0, y: 0.5, z: 2}
+  _randomSeed: 1
+  _seed: 0

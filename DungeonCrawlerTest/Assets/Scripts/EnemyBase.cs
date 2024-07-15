@@ -2,13 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
+using FirstGearGames.SmoothCameraShaker;
 using UnityEngine.AI;
 
 public class EnemyBase : MonoBehaviour
 {
     [Header("Components")]
     private NavMeshAgent agent;
-    private Rigidbody rb;
+    public Rigidbody rb;
     private Transform player;
     [SerializeField] private GameObject hitVfx;
     [SerializeField] private GameObject activeTargetObject;
@@ -19,12 +20,6 @@ public class EnemyBase : MonoBehaviour
     public EnemyState enemyState;
     bool isKnockBack = false;
     bool isAttacking = false;
-
-    [Header("Damage")]
-    private float timeSinceLastDamage;
-    private bool isTakingDamage;
-
-    private Coroutine damageCoroutine;
     public enum EnemyState
     {
         idle,
@@ -34,22 +29,40 @@ public class EnemyBase : MonoBehaviour
         attack,
         death
     }
- 
+    [Header("Damage")]
+    private float timeSinceLastDamage;
+    private bool isTakingDamage;
+    private Coroutine damageCoroutine;
+    public ShakeData damageShakeData;
+
+    [Header("Attack")]
+    public LayerMask whatIsPlayer;
+    public float range;
+    public float attackRange;
+    public Transform attackPos;
+
+    [Header("Health")]
+    public int maxHealth;
+    private int currentHealth;
 
     // Start is called before the first frame update
     void Start()
     {
-        rb = GetComponent<Rigidbody>();
+        float speed = Random.Range(2, 6);
+        
+        //rb = GetComponent<Rigidbody>();
         agent = GetComponent<NavMeshAgent>();
         animator = GetComponent<Animator>();
         ActiveTarget(false);
-
+        agent.speed = speed;
         timeSinceLastDamage = 0f;
         isTakingDamage = false;
 
         player = GameControl.instance.playerControl.transform;
-
+        currentHealth = maxHealth;
         StartCoroutine(Enum_Initilaize_Enemy());
+
+        TargetDetectionControl.instance.allTargetsInScene.Add(transform);
     }
 
     IEnumerator Enum_Initilaize_Enemy()
@@ -74,7 +87,7 @@ public class EnemyBase : MonoBehaviour
 
     private IEnumerator CheckDamageTime()
     {
-        yield return new WaitForSeconds(.8f);
+        yield return new WaitForSeconds(2f);
 
         if (!isTakingDamage)
         {
@@ -95,8 +108,22 @@ public class EnemyBase : MonoBehaviour
 
     }
 
-    public void TakeDamage()
+    public void Gameover()
     {
+        enemyState = EnemyState.idle;
+    }
+
+    public void PerformAttack() //animation event
+    {
+        Collider[] hit = Physics.OverlapSphere(attackPos.position, attackRange, whatIsPlayer);
+        if(hit.Length > 0)
+        {
+            hit[0].GetComponent<PlayerControl>().TakeDamage(10);
+        }
+    }
+    public void TakeDamage(int damageTaken)
+    {
+       
         if (agent.enabled)
         {
             agent.ResetPath();
@@ -104,6 +131,17 @@ public class EnemyBase : MonoBehaviour
        
         enemyState = EnemyState.knockback;
         isTakingDamage = true;
+
+        currentHealth -= damageTaken;
+        //CameraShakerHandler.Shake(damageShakeData);
+
+        ScoreManager.instance.AddScore(2);
+        if (currentHealth <= 0)
+        {
+            GameControl.instance.playerControl.DestroyedTarget();
+            TargetDetectionControl.instance.allTargetsInScene.Remove(transform);
+            Destroy(gameObject);
+        }
     }
 
     void MoveState()
@@ -186,8 +224,6 @@ public class EnemyBase : MonoBehaviour
         isAttacking = false;
     }
 
-    public LayerMask whatIsPlayer;
-    public float range;
 
     public void CheckPlayerInRange()
     {
@@ -208,5 +244,10 @@ public class EnemyBase : MonoBehaviour
         activeTargetObject.SetActive(bool_);
     }
 
+    void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(attackPos.position, attackRange);
+    }
 
 }

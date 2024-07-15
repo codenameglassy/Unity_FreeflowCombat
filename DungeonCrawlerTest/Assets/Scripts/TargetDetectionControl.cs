@@ -13,7 +13,7 @@ public class TargetDetectionControl : MonoBehaviour
 
     [Header("Scene")]
     public List<Transform> allTargetsInScene = new List<Transform>();
-    
+
     [Space]
     [Header("Target Detection")]
     public LayerMask whatIsEnemy;
@@ -65,11 +65,39 @@ public class TargetDetectionControl : MonoBehaviour
     {
         while (true)
         {
-            yield return new WaitForSeconds(.1f); // Wait for 'x' milliseconds
-            GetEnemyInInputDirection();
+            yield return new WaitForSeconds(.2f); // Wait for 'x' milliseconds
+            GetCloseEnemy();
+            //GetEnemyInInputDirection();
         }
     }
+    void GetCloseEnemy()
+    {
+        Transform target = GetClosestEnemy();
 
+        if(target == null)
+        {
+            return;
+        }
+        //playerControl.target = target;
+        playerControl.ChangeTarget(target);
+    }
+    public Transform GetClosestEnemy()
+    {
+        Transform closestEnemy = null;
+        float closestDistance = Mathf.Infinity;
+
+        foreach (Transform enemy in allTargetsInScene)
+        {
+            float distanceToEnemy = Vector3.Distance(playerControl.transform.position, enemy.position);
+            if (distanceToEnemy < closestDistance && distanceToEnemy <= detectionRange)
+            {
+                closestDistance = distanceToEnemy;
+                closestEnemy = enemy;
+            }
+        }
+
+        return closestEnemy;
+    }
     #region Get Enemy In Input Direction
 
     public void GetEnemyInInputDirection()

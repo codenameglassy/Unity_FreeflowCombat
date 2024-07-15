@@ -1,0 +1,85 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ba2a80b753f77d4d96ab2af3748cee8, type: 3}
+  m_Name: RockImpact
+  m_EditorClassIdentifier: 
+  _scaledTime: 1
+  _shakeCameras: 1
+  _shakeCanvases: 1
+  _shakeObjects: 1
+  _unlimitedDuration: 0
+  _totalDuration: 0.65
+  _fadeInDuration: 0
+  _fadeOutDuration: 0
+  _magnitude: 2
+  _magnitudeNoise: 0
+  _magnitudeCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: -0.0118255615
+      value: 0.68992233
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 0.12158468
+      value: 0.50882876
+      inSlope: 0.3773096
+      outSlope: 0.3773096
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 0.24658784
+      value: 0.80328476
+      inSlope: -0.015097341
+      outSlope: -0.015097341
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 0.3582877
+      value: 0.50703704
+      inSlope: -2.650396
+      outSlope: -2.650396
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 0.99487305
+      value: 0.0028076172
+      inSlope: 0.0633389
+      outSlope: 0.0633389
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  _roughness: 10
+  _roughnessNoise: 0
+  _roughnessCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  _positionalInfluence: {x: 0.15, y: 0.35, z: 0.15}
+  _positionalInverts: 0
+  _rotationalInfluence: {x: 0, y: 0, z: 0.5}
+  _rotationalInverts: 0
+  _randomSeed: 1
+  _seed: 1
