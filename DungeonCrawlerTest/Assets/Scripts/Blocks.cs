@@ -22,7 +22,7 @@ public class Blocks : MonoBehaviour
 
     public void SetPillar()
     {
-        int index = Random.Range(0, traps.Count);
+        int index = Random.Range(0, pillars.Count);
 
         pillars[index].SetActive(true);
     }

@@ -334,7 +334,10 @@ public class PlayerControl : MonoBehaviour
     #region MoveTowards, Target Offset and FaceThis
     public void MoveTowardsTarget(Vector3 target_, float deltaDistance, string animationName_)
     {
-        target.GetComponent<EnemyBase>().ReadyToTakeDamage();
+        if(target != null)
+        {
+            target.GetComponent<EnemyBase>().ReadyToTakeDamage();
+        }
         PerformAttackAnimation(animationName_);
         FaceThis(target_);
         Vector3 finalPos = TargetOffset(target_, deltaDistance);
@@ -345,7 +348,11 @@ public class PlayerControl : MonoBehaviour
 
     public void GetClose() // Animation Event ---- for Moving Close to Target
     {
-        target.GetComponent<EnemyBase>().ReadyToTakeDamage();
+        if(target != null)
+        {
+            target.GetComponent<EnemyBase>().ReadyToTakeDamage();
+        }
+      
         Vector3 getCloseTarget;
         if (target == null)
         {
@@ -407,7 +414,7 @@ public class PlayerControl : MonoBehaviour
         gameObject.SetActive(false);
     }
     
-
+    
     void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.red;

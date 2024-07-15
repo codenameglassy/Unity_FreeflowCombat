@@ -35,6 +35,7 @@ public class GameControl : MonoBehaviour
     [Header("Canvas")]
     public CanvasGroup bloodOverlay;
     public CanvasGroup fadeCanvas;
+    public CanvasGroup gameoverOverlay;
 
 
 
@@ -65,15 +66,11 @@ public class GameControl : MonoBehaviour
     {
         yield return new WaitForSeconds(1f);
 
+        for (int i = 0; i < spawnPosList.Count; i++)
+        {
+            Instantiate(enemy, spawnPosList[i].position, Quaternion.identity);
+        }
 
-          int randomindex = Random.Range(1, 3);
-          
-
-          for (int i = 0; i < randomindex; i++)
-          {
-              Instantiate(enemy, spawnPosList[i].position, Quaternion.identity);
-          }
-  
         yield return new WaitForSeconds(15f);
 
         StartCoroutine(Enum_SpawnWave());
@@ -116,7 +113,10 @@ public class GameControl : MonoBehaviour
 
     IEnumerator Enum_StartGame()
     {
-       
+
+        Cursor.lockState = CursorLockMode.Locked;//
+        Cursor.visible = false;//
+
         yield return new WaitForSeconds(3f);
         isGameStarted = true;
         navigateVCam.Follow = playerCameraRoot;
@@ -126,10 +126,6 @@ public class GameControl : MonoBehaviour
         thirdPersonController.enabled = true;
         playerControl.enabled = true;
 
-      
-
-        //GameControl.instance.cameraState = GameControl.CameraState.Navigate;
-        //GameControl.instance.SwitchCamera();
     }
     
     public void GameOver()
@@ -139,12 +135,25 @@ public class GameControl : MonoBehaviour
 
     IEnumerator Enum_Gameover()
     {
+        Debug.Log("SubmitingScore");
+        string currentUsername = PlayerPrefs.GetString("InputFieldValue");
+        Leaderboard.instance.SetLeaderboardEntry(currentUsername, ScoreManager.instance.GetCurrentScore());
         for (int i = 0; i < TargetDetectionControl.instance.allTargetsInScene.Count; i++)
         {
             TargetDetectionControl.instance.allTargetsInScene[i].GetComponent<EnemyBase>().Gameover();
         }
+
         yield return new WaitForSeconds(1f);
+        //Leaderboard.instance.GetLeaderBoard();
         fadeCanvas.DOFade(1, 2f);
+
+        //reset cursor
+        Cursor.lockState = CursorLockMode.None;//
+        Cursor.visible = true;//
+
+        yield return new WaitForSeconds(1.5f);
+        gameoverOverlay.gameObject.SetActive(true);
+        gameoverOverlay.DOFade(1, 2f);
 
     }
 }

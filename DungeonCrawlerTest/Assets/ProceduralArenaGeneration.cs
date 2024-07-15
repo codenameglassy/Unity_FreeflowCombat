@@ -75,7 +75,7 @@ public class ProceduralArenaGeneration : MonoBehaviour
         }
         yield return new WaitForSeconds(0.1f);
 
-        GameControl.instance.SpawnEnemy();
+      
 
         //set pillar
         int index5, index6;
@@ -92,5 +92,8 @@ public class ProceduralArenaGeneration : MonoBehaviour
             }
         }
 
+        yield return new WaitForSeconds(2f);
+
+        GameControl.instance.SpawnEnemy();
     }
 }
