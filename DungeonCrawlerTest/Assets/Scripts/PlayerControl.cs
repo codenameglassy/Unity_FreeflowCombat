@@ -414,7 +414,10 @@ public class PlayerControl : MonoBehaviour
         gameObject.SetActive(false);
     }
     
-    
+    public void SwordPoseAnimLayerWeight()
+    {
+        anim.SetLayerWeight(1, 0);
+    }
     void OnDrawGizmos()
     {
         Gizmos.color = Color.red;

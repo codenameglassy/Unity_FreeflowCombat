@@ -1590,6 +1590,7 @@ GameObject:
   - component: {fileID: 9131190800835335663}
   - component: {fileID: 8493964645403356691}
   - component: {fileID: 3887015439299931406}
+  - component: {fileID: 706628607307062109}
   m_Layer: 0
   m_Name: Pillar
   m_TagString: Untagged
@@ -1683,6 +1684,22 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!208 &706628607307062109
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6978196861735394148}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.4, y: 0.4, z: 0.4}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
 --- !u!1 &7545503594084399323
 GameObject:
   m_ObjectHideFlags: 0
@@ -1693,6 +1710,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6061039629360205136}
   - component: {fileID: 8681405105350393326}
+  - component: {fileID: 1731060024373518304}
   m_Layer: 0
   m_Name: Trap2
   m_TagString: Untagged
@@ -1740,6 +1758,22 @@ MonoBehaviour:
   - {fileID: 3910953033408913149}
   spikeUp: {x: 0, y: 0}
   spikeDown: {x: 0, y: -3}
+--- !u!208 &1731060024373518304
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7545503594084399323}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 4, y: 1, z: 4}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 1, y: 0, z: 0.17}
+  m_TimeToStationary: 0.5
 --- !u!1 &7611069461841214916
 GameObject:
   m_ObjectHideFlags: 0

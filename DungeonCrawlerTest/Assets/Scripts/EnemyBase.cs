@@ -40,6 +40,7 @@ public class EnemyBase : MonoBehaviour
     public float range;
     public float attackRange;
     public Transform attackPos;
+    public GameObject slashVfx;
 
     [Header("Health")]
     public int maxHealth;
@@ -194,6 +195,7 @@ public class EnemyBase : MonoBehaviour
                     return;
                 }
                 isAttacking = true;
+                
                 animator.SetBool("move", false);
                 if (agent.enabled)
                 {
@@ -201,11 +203,19 @@ public class EnemyBase : MonoBehaviour
                 }
                 agent.enabled = false;
 
-                animator.SetBool("attack", true);
-                FaceThis(player.transform.position);
-                Invoke("ResetAttack", .5f);
+                //animator.SetBool("attack", true);
+                Invoke("Attack", .3f);
+               
                 break;
         }
+    }
+
+    void Attack()
+    {
+        Instantiate(slashVfx, attackPos.position, Quaternion.identity);
+        PerformAttack();
+        FaceThis(player.transform.position);
+        Invoke("ResetAttack", .5f);
     }
 
     public void FaceThis(Vector3 target)

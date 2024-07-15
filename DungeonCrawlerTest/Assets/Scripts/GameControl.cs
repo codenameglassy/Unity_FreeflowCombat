@@ -118,6 +118,7 @@ public class GameControl : MonoBehaviour
         Cursor.visible = false;//
 
         yield return new WaitForSeconds(2f);
+        Debug.Log("Game started");
         isGameStarted = true;
         navigateVCam.Follow = playerCameraRoot;
         combatVcam.Follow = playerCameraRoot;
@@ -125,9 +126,9 @@ public class GameControl : MonoBehaviour
         //enable player scripts
         thirdPersonController.enabled = true;
         playerControl.enabled = true;
-
-        Debug.Log("Game started");
-
+        yield return new WaitForSeconds(1f);
+        playerControl.SwordPoseAnimLayerWeight();
+      
     }
     
     public void GameOver()
