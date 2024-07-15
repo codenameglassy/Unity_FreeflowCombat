@@ -117,7 +117,7 @@ public class GameControl : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;//
         Cursor.visible = false;//
 
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(2f);
         isGameStarted = true;
         navigateVCam.Follow = playerCameraRoot;
         combatVcam.Follow = playerCameraRoot;
@@ -125,6 +125,8 @@ public class GameControl : MonoBehaviour
         //enable player scripts
         thirdPersonController.enabled = true;
         playerControl.enabled = true;
+
+        Debug.Log("Game started");
 
     }
     

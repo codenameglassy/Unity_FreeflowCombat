@@ -285,7 +285,7 @@ public class PlayerControl : MonoBehaviour
                 knockbackDirection.y = airknockbackForce; // Keep the knockback horizontal
 
                 // Get collision point
-                Vector3 collisionPoint = enemy.ClosestPoint(transform.position);
+                Vector3 collisionPoint = enemy.ClosestPoint(attackPos.position);
 
                 // Apply force to the enemy
                 enemyBase.TakeDamage(10);
@@ -415,7 +415,7 @@ public class PlayerControl : MonoBehaviour
     }
     
     
-    void OnDrawGizmosSelected()
+    void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(attackPos.position, attackRange); // Visualize the attack range

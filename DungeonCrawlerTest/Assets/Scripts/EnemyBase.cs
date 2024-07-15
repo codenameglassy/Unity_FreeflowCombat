@@ -134,6 +134,7 @@ public class EnemyBase : MonoBehaviour
 
         currentHealth -= damageTaken;
         //CameraShakerHandler.Shake(damageShakeData);
+        transform.DOScale(new Vector3(1f, 1f, 1f), .2f).SetEase(Ease.OutBounce).OnComplete(() => transform.DOScale(new Vector3(.8f, .8f, .8f), .1f).SetEase(Ease.InBounce));
 
         ScoreManager.instance.AddScore(2);
         if (currentHealth <= 0)
@@ -193,7 +194,6 @@ public class EnemyBase : MonoBehaviour
                     return;
                 }
                 isAttacking = true;
-
                 animator.SetBool("move", false);
                 if (agent.enabled)
                 {
@@ -219,6 +219,7 @@ public class EnemyBase : MonoBehaviour
 
     void ResetAttack()
     {
+        
         animator.SetBool("attack", false);
         MoveState();
         isAttacking = false;
