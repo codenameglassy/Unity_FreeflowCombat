@@ -54,7 +54,7 @@ public class InputFieldHandler : MonoBehaviour
         PlayerPrefs.SetString(PlayerPrefsKey, inputValue);
         PlayerPrefs.Save();
         Debug.Log("Input value saved: " + inputValue);
-        FindObjectOfType<ScreenLoader>().LoadScene("SampleScene");
+        FindObjectOfType<ScreenLoader>().LoadLevelAsynchronously("SampleScene");
 
     }
 

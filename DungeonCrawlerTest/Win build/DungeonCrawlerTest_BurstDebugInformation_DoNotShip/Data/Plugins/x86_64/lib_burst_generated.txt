@@ -17,6 +17,7 @@ Library: D:\GitHub\Unity_FreeflowCombat\DungeonCrawlerTest\Temp\BurstOutput\Data
 --assembly-defines=Unity.ProBuilder.Csg;
 --assembly-defines=Unity.RenderPipelines.Universal.Config.Runtime;
 --assembly-defines=Unity.VisualScripting.Flow;
+--assembly-defines=lootlocker.lootlockersdk.runtime;
 --assembly-defines=Unity.RenderPipelines.Core.ShaderLibrary;
 --assembly-defines=CFXRRuntime;
 --assembly-defines=Unity.ProBuilder.Poly2Tri;
@@ -29,7 +30,6 @@ Library: D:\GitHub\Unity_FreeflowCombat\DungeonCrawlerTest\Temp\BurstOutput\Data
 --assembly-defines=Unity.ProBuilder;
 --assembly-defines=KinoBloom.Runtime;
 --assembly-defines=Unity.Recorder.Base;
---assembly-defines=Danqzq.LeaderboardCreator;
 --assembly-defines=Unity.VisualScripting.Core;
 --assembly-defines=Unity.RenderPipeline.Universal.ShaderLibrary;
 --assembly-defines=Unity.Timeline;
@@ -114,6 +114,7 @@ Library: D:\GitHub\Unity_FreeflowCombat\DungeonCrawlerTest\Temp\BurstOutput\Data
 --assembly-defines=Unity.ProBuilder.Csg;
 --assembly-defines=Unity.RenderPipelines.Universal.Config.Runtime;
 --assembly-defines=Unity.VisualScripting.Flow;
+--assembly-defines=lootlocker.lootlockersdk.runtime;
 --assembly-defines=Unity.RenderPipelines.Core.ShaderLibrary;
 --assembly-defines=CFXRRuntime;
 --assembly-defines=Unity.ProBuilder.Poly2Tri;
@@ -126,7 +127,6 @@ Library: D:\GitHub\Unity_FreeflowCombat\DungeonCrawlerTest\Temp\BurstOutput\Data
 --assembly-defines=Unity.ProBuilder;
 --assembly-defines=KinoBloom.Runtime;
 --assembly-defines=Unity.Recorder.Base;
---assembly-defines=Danqzq.LeaderboardCreator;
 --assembly-defines=Unity.VisualScripting.Core;
 --assembly-defines=Unity.RenderPipeline.Universal.ShaderLibrary;
 --assembly-defines=Unity.Timeline;
@@ -213,6 +213,7 @@ Library: D:\GitHub\Unity_FreeflowCombat\DungeonCrawlerTest\Temp\BurstOutput\Data
 --assembly-defines=Unity.ProBuilder.Csg;
 --assembly-defines=Unity.RenderPipelines.Universal.Config.Runtime;
 --assembly-defines=Unity.VisualScripting.Flow;
+--assembly-defines=lootlocker.lootlockersdk.runtime;
 --assembly-defines=Unity.RenderPipelines.Core.ShaderLibrary;
 --assembly-defines=CFXRRuntime;
 --assembly-defines=Unity.ProBuilder.Poly2Tri;
@@ -225,7 +226,6 @@ Library: D:\GitHub\Unity_FreeflowCombat\DungeonCrawlerTest\Temp\BurstOutput\Data
 --assembly-defines=Unity.ProBuilder;
 --assembly-defines=KinoBloom.Runtime;
 --assembly-defines=Unity.Recorder.Base;
---assembly-defines=Danqzq.LeaderboardCreator;
 --assembly-defines=Unity.VisualScripting.Core;
 --assembly-defines=Unity.RenderPipeline.Universal.ShaderLibrary;
 --assembly-defines=Unity.Timeline;
@@ -293,6 +293,7 @@ Library: D:\GitHub\Unity_FreeflowCombat\DungeonCrawlerTest\Temp\BurstOutput\Data
 --assembly-defines=Unity.ProBuilder.Csg;
 --assembly-defines=Unity.RenderPipelines.Universal.Config.Runtime;
 --assembly-defines=Unity.VisualScripting.Flow;
+--assembly-defines=lootlocker.lootlockersdk.runtime;
 --assembly-defines=Unity.RenderPipelines.Core.ShaderLibrary;
 --assembly-defines=CFXRRuntime;
 --assembly-defines=Unity.ProBuilder.Poly2Tri;
@@ -305,7 +306,6 @@ Library: D:\GitHub\Unity_FreeflowCombat\DungeonCrawlerTest\Temp\BurstOutput\Data
 --assembly-defines=Unity.ProBuilder;
 --assembly-defines=KinoBloom.Runtime;
 --assembly-defines=Unity.Recorder.Base;
---assembly-defines=Danqzq.LeaderboardCreator;
 --assembly-defines=Unity.VisualScripting.Core;
 --assembly-defines=Unity.RenderPipeline.Universal.ShaderLibrary;
 --assembly-defines=Unity.Timeline;

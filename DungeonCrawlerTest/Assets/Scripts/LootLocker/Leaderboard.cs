@@ -24,7 +24,7 @@ public class Leaderboard : MonoBehaviour
         StartCoroutine(SubmitScoreRoutine(scoreToUpload));
     }
 
-    IEnumerator SubmitScoreRoutine(int scoreToUpload)
+    public IEnumerator SubmitScoreRoutine(int scoreToUpload)
     {
         bool done = false;
         string playerID = PlayerManager_LootLocker.Instance.GetPlayerID();
@@ -56,7 +56,7 @@ public class Leaderboard : MonoBehaviour
                 Debug.Log("Sucessfully feteched leaderboard");
 
                 string tempPlayerNames = "Name\n <br>";
-                string tempPlayerScores = "Scores\n <br>";
+                string tempPlayerScores = "Highscores\n <br>";
 
                 LootLockerLeaderboardMember[] member = response.items;
 
@@ -99,6 +99,7 @@ public class Leaderboard : MonoBehaviour
         {
             if (response.success)
             {
+                Debug.Log("Sucessfully feteched player's perosnal score");
                 Debug.Log("Player's score: " + response.score);
                 Debug.Log("Player's rank: " + response.rank);
                 personalNameAndScoreTxt.text = "Your rank: " + response.rank + ". " + response.player.name + " - " + response.score;

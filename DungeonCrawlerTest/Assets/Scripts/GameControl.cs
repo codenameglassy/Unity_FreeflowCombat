@@ -113,12 +113,14 @@ public class GameControl : MonoBehaviour
 
     IEnumerator Enum_StartGame()
     {
-
+        AudioManagerCS.instance.FadeIn("theme", 2f);
+        Time.timeScale = 1.0f;
         Cursor.lockState = CursorLockMode.Locked;//
         Cursor.visible = false;//
 
         yield return new WaitForSeconds(2f);
         Debug.Log("Game started");
+       
         isGameStarted = true;
         navigateVCam.Follow = playerCameraRoot;
         combatVcam.Follow = playerCameraRoot;
@@ -140,9 +142,13 @@ public class GameControl : MonoBehaviour
     IEnumerator Enum_Gameover()
     {
         Debug.Log("SubmitingScore");
-        //string currentUsername = PlayerPrefs.GetString("InputFieldValue");
-        Leaderboard.instance.SubmitScore(ScoreManager.instance.GetCurrentScore());
-        Leaderboard.instance.FetechPersonalScore();
+        AudioManagerCS.instance.FadeOut("theme", 2);
+        AudioManagerCS.instance.Play("gameOver");
+
+        yield return StartCoroutine(Leaderboard.instance.SubmitScoreRoutine(ScoreManager.instance.GetCurrentScore())); // Submit score
+        yield return StartCoroutine(Leaderboard.instance.FetechPersonalScoreRoutine()); //get personal score
+        yield return StartCoroutine(Leaderboard.instance.FetechLeaderboardRoutine()); //update leaderbaord score
+
         for (int i = 0; i < TargetDetectionControl.instance.allTargetsInScene.Count; i++)
         {
             TargetDetectionControl.instance.allTargetsInScene[i].GetComponent<EnemyBase>().Gameover();

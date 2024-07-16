@@ -134,6 +134,8 @@ public class EnemyBase : MonoBehaviour
         isTakingDamage = true;
 
         currentHealth -= damageTaken;
+        int index = Random.Range(1, 4);
+        AudioManagerCS.instance.Play("hit" + index);
         //CameraShakerHandler.Shake(damageShakeData);
         transform.DOScale(new Vector3(1f, 1f, 1f), .2f).SetEase(Ease.OutBounce).OnComplete(() => transform.DOScale(new Vector3(.8f, .8f, .8f), .1f).SetEase(Ease.InBounce));
 

@@ -269,6 +269,7 @@ public class PlayerControl : MonoBehaviour
 
     public void PerformAttack() // Animation Event ---- for Attacking Targets
     {
+        AttackAudio();
         // Assuming we have a melee attack with a short range
        
         Collider[] hitEnemies = Physics.OverlapSphere(attackPos.position, attackRange, enemyLayer);
@@ -370,7 +371,14 @@ public class PlayerControl : MonoBehaviour
 
     void PerformAttackAnimation(string animationName_)
     {
+        
         anim.SetBool(animationName_, true);
+    }
+
+    public void AttackAudio() // -------------- Animation Event
+    {
+        int index = Random.Range(1, 4);
+        AudioManagerCS.instance.Play("swordSlash" + index);
     }
 
     public Vector3 TargetOffset(Vector3 target, float deltaDistance)
@@ -394,7 +402,7 @@ public class PlayerControl : MonoBehaviour
     {
         Debug.Log("Damage Taken");
         GameControl.instance.BloodOverlay();
-
+        AudioManagerCS.instance.Play("playerHurt");
         currentHealth -= damageTaken;
         healthText.text = currentHealth.ToString();
         if (currentHealth <= 0)

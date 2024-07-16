@@ -19,10 +19,10 @@ public class ProceduralArenaGeneration : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.R))
+        /*if (Input.GetKeyDown(KeyCode.R))
         {
             StartCoroutine(Enum_RandomArena());
-        }
+        }*/
     }
 
     private IEnumerator Enum_RandomArena()
